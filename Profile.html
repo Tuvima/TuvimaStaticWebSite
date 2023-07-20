@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Styles for the profile modal */
+    .profile-modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    /* Styles for the profile modal content */
+    .profile-modal-content {
+      background-color: #fefefe;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 4px;
+    }
+
+    /* Styles for the profile modal header */
+    .profile-modal-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Styles for the profile modal title */
+    .profile-modal-title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    /* Styles for the profile modal sidebar */
+    .profile-modal-sidebar {
+      flex-basis: 25%;
+      padding-right: 20px;
+    }
+
+    /* Styles for the profile modal main content */
+    .profile-modal-content-main {
+      flex-grow: 1;
+    }
+
+    /* Styles for the profile modal form */
+    .profile-modal-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Styles for the profile modal field */
+    .profile-modal-field {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    /* Styles for the profile modal label */
+    .profile-modal-label {
+      font-weight: bold;
+      width: 150px;
+      text-align: right;
+      margin-right: 10px;
+    }
+
+    /* Styles for the profile modal input */
+    .profile-modal-input {
+      flex-grow: 1;
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    /* Styles for the profile modal radio buttons */
+    .profile-modal-radio-group {
+      display: flex;
+      margin-top: 5px;
+    }
+
+    /* Styles for the profile modal radio button label */
+    .profile-modal-radio-label {
+      margin-right: 10px;
+    }
+
+    /* Styles for the profile modal buttons */
+    .profile-modal-buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+
+    /* Styles for the profile modal save button */
+    .profile-modal-save {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Styles for the profile modal save button on hover */
+    .profile-modal-save:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="openProfileModal()">Open Profile Modal</button>
+
+  <div id="profileModal" class="profile-modal">
+    <div class="profile-modal-content">
+      <div class="profile-modal-header">
+        <h2 class="profile-modal-title">Profile</h2>
+      </div>
+      <div class="profile-modal-sidebar">
+        <!-- Sidebar content goes here -->
+      </div>
+      <div class="profile-modal-content-main">
+        <form class="profile-modal-form" onsubmit="event.preventDefault(); saveProfileData();">
+          <div class="profile-modal-field">
+            <label class="profile-modal-label">Display Name:</label>
+            <input type="text" id="displayName" class="profile-modal-input" required />
+          </div>
+          <div class="profile-modal-field">
+            <label class="profile-modal-label">Gender:</label>
+            <div class="profile-modal-radio-group">
+              <label class="profile-modal-radio-label">
+                <input type="radio" name="gender" value="Male" required> Male
+              </label>
+              <label class="profile-modal-radio-label">
+                <input type="radio" name="gender" value="Female" required> Female
+              </label>
+              <label class="profile-modal-radio-label">
+                <input type="radio" name="gender" value="Other" required> Other
+              </label>
+            </div>
+          </div>
+          <div class="profile-modal-field">
+            <label class="profile-modal-label">Year of Birth:</label>
+            <input type="text" id="yearOfBirth" class="profile-modal-input" required />
+          </div>
+          <div class="profile-modal-field">
+            <label class="profile-modal-label">Postcode:</label>
+            <input type="text" id="postcode" class="profile-modal-input" required />
+          </div>
+          <div class="profile-modal-buttons">
+            <button type="submit" class="profile-modal-save">Save Profile</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Get the profile modal element
+    var profileModal = document.getElementById("profileModal");
+
+    // Function to open the profile modal
+    function openProfileModal() {
+      // Retrieve profile data from local storage
+      var profileData = JSON.parse(localStorage.getItem("profileData"));
+
+      // Fill the form fields with the retrieved data
+      if (profileData) {
+        document.getElementById("displayName").value = profileData.displayName;
+        document.querySelector(`input[name="gender"][value="${profileData.gender}"]`).checked = true;
+        document.getElementById("yearOfBirth").value = profileData.yearOfBirth;
+        document.getElementById("postcode").value = profileData.postcode;
+      }
+
+      profileModal.style.display = "block";
+    }
+
+    // Function to close the profile modal
+    function closeProfileModal() {
+      profileModal.style.display = "none";
+    }
+
+    // Function to save the profile data into local storage
+    function saveProfileData() {
+      var displayName = document.getElementById("displayName").value;
+      var gender = document.querySelector('input[name="gender"]:checked').value;
+      var yearOfBirth = document.getElementById("yearOfBirth").value;
+      var postcode = document.getElementById("postcode").value;
+
+      // Save the profile data to local storage
+      var profileData = {
+        displayName: displayName,
+        gender: gender,
+        yearOfBirth: yearOfBirth,
+        postcode: postcode
+      };
+      localStorage.setItem("profileData", JSON.stringify(profileData));
+
+      // Perform any other necessary actions with the profile data
+      console.log("Profile data saved:");
+      console.log(profileData);
+
+      // Close the profile modal
+      closeProfileModal();
+    }
+  </script>
+</body>
+</html>

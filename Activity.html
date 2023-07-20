@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* CSS styles */
+    .tab {
+      display: inline-block;
+      padding: 10px;
+      background-color: #f1f1f1;
+      cursor: pointer;
+    }
+    
+    .tab.active {
+      background-color: #ddd;
+    }
+    
+    .tab-content {
+      display: none;
+      padding: 20px;
+      border: 1px solid #ddd;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .forum-container {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="tab" id="activity-tab" onclick="showTab('activity')">Activity</div>
+    <div class="tab" id="image-tab" onclick="showTab('image')">Image</div>
+  </div>
+  
+  <div class="forum-container">
+    <div id="activity-content" class="tab-content">
+      <!-- Activity data goes here -->
+      <h2>User Activity on a Forum</h2>
+      <p>This is the user activity on the forum.</p>
+    </div>
+    
+    <div id="image-content" class="tab-content">
+      <!-- Image data goes here -->
+      <h2>Shared Images</h2>
+      <img src="image1.jpg" alt="Image 1">
+      <img src="image2.jpg" alt="Image 2">
+      <img src="image3.jpg" alt="Image 3">
+    </div>
+  </div>
+
+  <script>
+    function showTab(tabName) {
+      // Hide all tab contents
+      var tabContents = document.getElementsByClassName('tab-content');
+      for (var i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.remove('active');
+      }
+      
+      // Remove active class from all tabs
+      var tabs = document.getElementsByClassName('tab');
+      for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+      }
+      
+      // Show the selected tab content
+      document.getElementById(tabName + '-content').classList.add('active');
+      
+      // Add active class to the selected tab
+      document.getElementById(tabName + '-tab').classList.add('active');
+    }
+  </script>
+</body>
+</html>

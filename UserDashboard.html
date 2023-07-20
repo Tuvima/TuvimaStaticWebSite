@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>User Dashboard</title>
+    <style>
+        /* CSS styles for header, navbar, sidebar, content, and footer */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .news-header {
+            background-color: rgb(210, 29, 29);
+            color: white;
+            padding: 15px;
+            font-size: x-large;
+            text-align: left;
+        }
+
+        .news-header h1 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        header {
+            background-color: #f9f9f9;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        header .logo {
+            display: inline-block;
+            background-color: #000;
+            color: #fff;
+            font-weight: bold;
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 5px;
+        }
+
+        header .search {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        header .search input[type="text"] {
+            margin-right: 5px;
+        }
+
+        header .search button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        header .logout,
+        header .profile {
+            margin-left: 10px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        nav {
+            background-color: #f2f2f2;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            height: 50px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .sidebar {
+            background-color: #f2f2f2;
+            width: 250px;
+            padding: 20px;
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            display: block;
+            padding: 5px;
+        }
+
+        .sidebar ul li ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            margin-left: 10px;
+            display: none;
+        }
+
+        .sidebar ul li ul li a {
+            font-weight: normal;
+            padding: 2px 0;
+        }
+
+        .sidebar ul li a:before {
+            content: ".";
+            margin-right: 5px;
+        }
+
+        .sidebar ul li.expandable>a:before {
+            content: "+";
+            margin-right: 5px;
+        }
+
+        .sidebar ul li.expandable.expanded>a:before {
+            content: "-";
+            margin-right: 5px;
+        }
+
+        .sidebar ul li.expanded ul {
+            display: block;
+        }
+
+        .main {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            flex-shrink: 0;
+        }
+
+        /* Additional styles for interactive sidebar */
+        .sidebar ul li:hover>a {
+            background-color: #ddd;
+            color: #000;
+        }
+
+        .sidebar ul li ul li:hover>a {
+            background-color: #f5f5f5;
+        }
+
+        /* Additional styles for responsive layout */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                max-width: none;
+                width: 100%;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+        }
+
+        /* Additional styles for main content */
+        #mainContent {
+            text-align: left;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .details-container-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .details-container {
+            flex: 1;
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .success-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .success-button:hover {
+            background-color: #45a049;
+        }
+
+        .additional-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            background-color: rgb(213, 195, 195);
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .additional-info-subscription-plus {
+            display: flex;
+            flex-wrap: wrap;
+            color: white;
+            gap: 10px;
+            background-color: rgb(95, 121, 207);
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .additional-info-subscription-standard {
+            display: flex;
+            flex-wrap: wrap;
+            color: white;
+            gap: 10px;
+            background-color: rgb(35, 189, 133);
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .info-item img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .info-item p {
+            margin: 10;
+            padding: 10;
+        }
+
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background-color: #f2f2f2;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .tab:hover {
+            background-color: #e0e0e0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: stretch;
+            align-content: stretch;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .sidebar {
+            background-color: #f2f2f2;
+            width: 250px;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+        }
+
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .tab {
+            display: inline-block;
+            padding-left: 22%;
+            padding-right: 22%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background-color: rgb(213, 195, 195);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .forum-container {
+            margin-top: 20px;
+        }
+
+        .comments-container {
+            margin-top: 20px;
+        }
+
+        .comment {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .comment img {
+            border-radius: 50%;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .comment-header p {
+            margin-left: 5px;
+        }
+
+        .comment-content p {
+            margin: 0;
+            padding-top: 25%;
+            padding-left: 10%;
+        }
+
+        .comment-footer {
+            font-size: 12px;
+            color: gray;
+            padding: 10%;
+        }
+
+        .light-hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 10px 0;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="password"] {
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .password-container {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .password-container label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .password-container input[type="password"] {
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .password-button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .password-button:hover {
+            background-color: #45a049;
+        }
+
+        .password-button:active {
+            background-color: #3e8e41;
+        }
+
+        input[type="password"] {
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .profile-container label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .profile-container input[type="text"] {
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .profile-container input[type="datetime-local"] {
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .profile-button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .profile-button:hover {
+            background-color: #45a049;
+        }
+
+        .profile-button:active {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">B</div>
+        <div class="logo">B</div>
+        <div class="logo">C</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">News</a></li>
+                <li><a href="#">Sport</a></li>
+                <li><a href="#">Reel</a></li>
+                <li><a href="#">Worklife</a></li>
+                <li><a href="#">Travel</a></li>
+                <li><a href="#">Future</a></li>
+                <li><a href="#">Culture</a></li>
+                <li><a href="#">...</a></li>
+            </ul>
+        </nav>
+        <div class="search">
+            <input type="text" placeholder="Search BBC">
+            <button><img src="images/Search.png" width="15px" height="15px" alt="Search"></button>
+        </div>
+        <a href="#" class="logout"><img src="images/logout.jpg" width="15px" height="15px" alt="Logout"> Logout</a>
+        <a href="#" class="profile" onclick="AddProfile()"><img src="images/Profile.jpg" width="15px" height="15px"
+                alt="Profile"> Profile</a>
+    </header>
+
+    <div class="news-header">
+        <h1><strong>BBC NEWS</strong></h1>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <h3>Overview</h3>
+            <ul>
+                <li class="expandable">
+                    <a href="#">Profile</a>
+                    <ul>
+                        <li><a href="#" onclick="AddProfile()">Profile Setting</a></li>
+                    </ul>
+                </li>
+                <li class="expandable">
+                    <a href="#">Personas</a>
+                    <ul>
+                        <li><a href="#" onclick="AddBBCNewsPersona()">BBC News Persona</a></li>
+                    </ul>
+                </li>
+                <li class="expandable">
+                    <a href="#">Payments</a>
+                    <ul>
+                        <li><a href="#" onclick="AddTuvimaPlusSubscription()">Subscriptions</a></li>
+                    </ul>
+                </li>
+                <li class="expandable">
+                    <a href="#">Security & Policy</a>
+                    <ul>
+                        <li><a href="#" onclick="AddPassword()">Password</a></li>
+                    </ul>
+                </li>
+                <li class="expandable">
+                    <a href="#">Others</a>
+                    <ul>
+                        <li><a href="#" onclick="AddActivity()">Activities</a></li>
+                        <li><a href="#" onclick="AddPosts()">Posts</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="main">
+            <div id="mainContent">
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        &copy; 2023 BBC User Dashboard. All rights reserved.
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const expandableItems = document.querySelectorAll('.expandable > a');
+
+            expandableItems.forEach((link) => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const listItem = link.parentElement;
+                    listItem.classList.toggle('expanded');
+                });
+            });
+        });
+
+        function AddBBCNewsPersona() {
+
+            const mainContent = document.querySelector('#mainContent');
+            mainContent.innerHTML = `
+              <div class="details-container">
+                <h1>BBC News Persona</h1>
+                <div class="profile-box">
+                  <div class="profile-logo">
+                    <img src="images/profile.jpg" width="100px" height="100px" alt="Profile">
+                    <h3>Nickname: <span id="personaNickName"></span></h3>
+                    <h3>Identity: <span id="profilePersonaIdentity"></span></h3>
+                  </div>
+                  <div class="profile-info">
+                    <div class="additional-info">
+                      <div class="info-item"><img src="images/Posts.jpg" alt="Posts Logo" width="20px" height="20px"><p><strong>Posts:</strong> 100</p></div>
+                      <div class="info-item"><img src="images/Registered.png" alt="Registered Logo" width="20px" height="20px"><p><strong>Registered:</strong> January 1, 2023</p></div>
+                      <div class="info-item"><img src="images/LastVisited.png" alt="Last Visited Logo" width="20px" height="20px"><p><strong>Last Visited:</strong> July 15, 2023</p></div>
+                      <div class="info-item"><img src="images/Reputation.png" alt="Reputation Logo" width="20px" height="20px"><p><strong>Reputation:</strong> 500</p></div>
+                      <div class="info-item"><img src="images/Answers.png" alt="Community Answers Logo" width="20px" height="20px"><p><strong>Community Answers:</strong> 50</p></div>
+                      <div class="info-item"><img src="images/Badge.png" alt="Badges Points Logo" width="20px" height="20px"><p><strong>Badges Points:</strong> 200</p></div>
+                    </div>
+                  </div>
+                </div>
+                
+                <p><strong>Status:</strong> <button class="success-button active">Active</button></p>
+                <p><strong>Subscription Points:</strong> 450</p>
+                <p><strong>Subscription Plans:</strong> BBC Plus + </p>
+                <p><strong>Subscription Plans:</strong> BBC Standard </p>
+              </div>
+              
+              <br/>
+              
+              <div class="forum-container">
+                  <div class="tabs-container">
+                    <div class="tab active" id="activity-tab" onclick="showTab('activity')">Activity</div>
+                    <div class="tab" id="image-tab" onclick="showTab('image')">Images</div>
+                  </div>
+                  
+                  <div class="tab-content active" id="activity-content">
+                    <!-- Activity data goes here -->
+                    <h2>Activities</h2>
+                    <hr/>
+                    <div class="comments-container">
+                      ${generateComments(10)}
+                    </div>
+                  </div>
+                  
+                  <div class="tab-content" id="image-content">
+                    <!-- Image data goes here -->
+                    <h2>Shared Images</h2>
+                    ${generateImages(10)}
+                  </div>
+                </div>
+            `;
+
+            const tabs = document.querySelectorAll('.tab');
+            const contentContainer = document.querySelector('.content-container');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    const selectedContent = document.getElementById(`${tabId}-content`);
+                    contentContainer.querySelectorAll('.content').forEach(content => {
+                        content.style.display = 'none';
+                    });
+                    selectedContent.style.display = 'block';
+
+                    tabs.forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+                    tab.classList.add('active');
+
+                    const activeButton = document.querySelector('.success-button');
+                    activeButton.classList.toggle('active');
+                });
+            });
+
+            loadUserInfoFromLocalStorage();
+        }
+
+        function generateComments(count) {
+            const comments = [
+                "A Great Win of England against Pakistan Men's T20 World cup!",
+                "Interesting discussion going on in the forum.",
+                "I completely agree with the points made in the post.",
+                "This is an excellent resource. Thanks for sharing!",
+                "I'm looking forward to the upcoming events.",
+                "The community here is very helpful and supportive.",
+                "Congratulations to the team for the successful launch!",
+                "I have a question regarding the latest news. Can someone help?",
+                "The article provided valuable insights into the topic.",
+                "I appreciate the effort put into organizing this forum."
+            ];
+
+            let commentsHTML = '';
+            for (let i = 1; i <= count; i++) {
+                const randomComment = comments[Math.floor(Math.random() * comments.length)];
+                const date = new Date().toDateString();
+                commentsHTML += `
+                <div class="comment">
+                  <div class="comment-header">
+                    <img src="images/profile.jpg" width="40px" height="40px" alt="Profile">
+                    <p>John Doe</p>
+                  </div>
+                  <div class="comment-content">
+                    <p>${randomComment}</p>
+                  </div>
+                  <div class="comment-footer">
+                    <p>${date}</p>
+                  </div>
+                </div>
+                <hr class="light-hr">
+              `;
+            }
+            return commentsHTML;
+        }
+
+        function generateImages(count) {
+            let imagesHTML = '';
+            for (let i = 1; i <= count; i++) {
+                const imageNumber = i;
+                imagesHTML += `<img src="images/SharedImages/${imageNumber}.jpg" alt="Image ${imageNumber}" height=400px; width=780px;>
+                            <p><strong>Shared Date:</strong> ${new Date().toDateString()}</p>`;
+            }
+            return imagesHTML;
+        }
+
+
+
+
+        function AddTuvimaPlusSubscription() {
+            const mainContent = document.querySelector('#mainContent');
+            mainContent.innerHTML = `
+            <div class="details-container-container">
+                <div class="details-container">
+                  <h2>Subscription Plan</h2>
+                  <div class="profile-box">
+                    <div class="profile-info">
+                      <div class="additional-info-subscription-plus">
+                        <h3>BBC Plus + </h3>
+                        <h4>Persona Identity: <span id="personaIdentityPlus"></span></h4>
+                      </div>
+                    </div>
+                  </div>
+                  <p><strong>Status:</strong> Active</p>
+                  <p><strong>Subscription Points:</strong> 300</p>
+                </div>
+              
+                <div class="details-container">
+                  <h2>Subscription Plan</h2>
+                  <div class="profile-box">
+                    <div class="profile-info">
+                      <div class="additional-info-subscription-standard">
+                        <h3>BBC Standard </h3>
+                        <h4>Persona Identity: <span id="personaIdentityStandard"></span></h4>
+                      </div>
+                    </div>
+                  </div>
+                  <p><strong>Status:</strong> Active</p>
+                  <p><strong>Subscription Points:</strong> 150</p>
+                </div>
+              </div>
+              
+        `;
+
+        loadUserInfoFromLocalStorage();
+
+        }
+
+        function showTab(tabName) {
+            // Hide all tab contents
+            var tabContents = document.getElementsByClassName('tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+
+            // Remove active class from all tabs
+            var tabs = document.getElementsByClassName('tab');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active');
+            }
+
+            // Show the selected tab content
+            document.getElementById(tabName + '-content').classList.add('active');
+
+            // Add active class to the selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+        }
+
+
+        function AddActivity() {
+
+            const mainContent = document.querySelector('#mainContent');
+            mainContent.innerHTML = `
+              <br/>
+              
+              <div class="forum-container">
+                  <div class="tabs-container">
+                    <div class="tab active" id="activity-tab" onclick="showTab('activity')">Activity</div>
+                    <div class="tab" id="image-tab" onclick="showTab('image')">Images</div>
+                  </div>
+                  
+                  <div class="tab-content active" id="activity-content">
+                    <!-- Activity data goes here -->
+                    <h2>Activities</h2>
+                    <hr/>
+                    <div class="comments-container">
+                      ${generateComments(10)}
+                    </div>
+                  </div>
+                  
+                  <div class="tab-content" id="image-content">
+                    <!-- Image data goes here -->
+                    <h2>Shared Images</h2>
+                    <hr/>
+                    ${generateImages(10)}
+                  </div>
+                </div>
+            `;
+
+            const tabs = document.querySelectorAll('.tab');
+            const contentContainer = document.querySelector('.content-container');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    const selectedContent = document.getElementById(`${tabId}-content`);
+                    contentContainer.querySelectorAll('.content').forEach(content => {
+                        content.style.display = 'none';
+                    });
+                    selectedContent.style.display = 'block';
+
+                    tabs.forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+                    tab.classList.add('active');
+
+                    const activeButton = document.querySelector('.success-button');
+                    activeButton.classList.toggle('active');
+                });
+            });
+        }
+
+
+        function AddPosts() {
+
+            const mainContent = document.querySelector('#mainContent');
+            mainContent.innerHTML = `
+              <br/>
+              
+              <div class="forum-container">
+                  
+                  <div class="tab-content active" id="activity-content">
+                    <!-- Activity data goes here -->
+                    <h2>Posts</h2>
+                    <hr/>
+                    <div class="comments-container">
+                      ${generateComments(10)}
+                    </div>
+                  </div>
+                </div>
+            `;
+        }
+
+        function AddPassword() {
+            const mainContent = document.querySelector('#mainContent');
+            mainContent.innerHTML = `
+              <br/>
+              <div class="forum-container">
+                <div class="tab-content active" id="activity-content">
+                  <!-- Activity data goes here -->
+                  <h2>Manage Password</h2>
+                  <hr/>
+                  <div class="password-container">
+                    <label for="currentPassword">Current Password:</label>
+                    <input type="password" id="currentPassword" name="txtCurrentPassword" placeholder="Enter Current Password">
+                    
+                    <label for="newPassword">New Password:</label>
+                    <input type="password" id="newPassword" name="txtNewPassword" placeholder="Enter New Password">
+                    
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" name="txtConfirmPassword" placeholder="Enter Confirm Password">
+                    
+                    <button class="password-button">Change Password</button>
+                  </div>
+                </div>
+              </div>
+            `;
+        }
+
+
+        function AddProfile() {
+            const mainContent = document.querySelector('#mainContent');
+            mainContent.innerHTML = `
+              <br/>
+              <div class="forum-container">
+                <div class="tab-content active" id="activity-content">
+                  <h2>Profile Setting</h2>
+                  <hr/>
+                  <div class="profile-container">
+                    <label for="nickName">Nickname:</label>
+                    <input type="text" id="nickName" name="txtNickName" placeholder="Enter Nickname">
+                    
+                    <label for="birthdaytime">Date of Birth:</label>
+                    <input type="datetime-local" id="birthdaytime" name="birthdaytime">
+                    
+                    <label for="postCode">PostCode:</label>
+                    <input type="text" id="postCode" name="txtPostCode" placeholder="Enter PostCode">
+                    
+                    <button class="password-button">Update Profile</button>
+                  </div>
+                </div>
+              </div>
+            `;
+        }
+
+
+        function loadUserInfoFromLocalStorage() {
+            var userInfo = localStorage.getItem("signupData");
+            if (userInfo) {
+                var parsedUserInfo = JSON.parse(userInfo);
+                
+                var personaNickName = document.getElementById("personaNickName");
+                var profilePersonaIdentity = document.getElementById("profilePersonaIdentity");
+                var personaIdentityPlus = document.getElementById("personaIdentityPlus");
+                var personaIdentityStandard = document.getElementById("personaIdentityStandard");
+
+                try{
+                    personaNickName.textContent = parsedUserInfo.nickname.toUpperCase();
+                }
+                catch{ }
+
+                try {
+                    profilePersonaIdentity.textContent = parsedUserInfo.tuvimaIdentity;
+                }
+                catch { }
+
+                try {
+                    personaIdentityPlus.textContent = parsedUserInfo.tuvimaIdentity;
+                }
+                catch { }
+
+                try {
+                    personaIdentityStandard.textContent = parsedUserInfo.tuvimaIdentity;
+                }
+                catch { }
+
+            }
+        }
+
+        AddBBCNewsPersona();
+    </script>
+
+</body>
+
+</html>

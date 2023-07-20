@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>BBC NEWS</title>
+    <style>
+        /* CSS styles for header, navbar, sidebar, content, and footer */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .news-header {
+            background-color: rgb(210, 29, 29);
+            color: white;
+            padding: 15px;
+            font-size: x-large;
+            text-align: left;
+        }
+
+        .news-header h1 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        header {
+            background-color: #f9f9f9;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        header .logo {
+            display: inline-block;
+            background-color: #000;
+            color: #fff;
+            font-weight: bold;
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 5px;
+        }
+
+        .logo {
+            display: inline-block;
+            background-color: #fff;
+            color: #000;
+            font-weight: bold;
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 5px;
+        }
+
+        header .search {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        header .search input[type="text"] {
+            margin-right: 5px;
+            font-size: small;
+            background-color: #f9f9f9;
+            color: #000;
+        }
+
+        header .search button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        header .logout,
+        header .profile {
+            margin-left: 10px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        nav {
+            background-color: #f2f2f2;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            height: 50px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .sidebar {
+            background-color: #f2f2f2;
+            width: 250px;
+            padding: 20px;
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            display: block;
+            padding: 5px;
+        }
+
+        .sidebar ul li ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            margin-left: 10px;
+            display: none;
+        }
+
+        .sidebar ul li ul li a {
+            font-weight: normal;
+            padding: 2px 0;
+        }
+
+        .sidebar ul li a:before {
+            content: ".";
+            margin-right: 5px;
+        }
+
+        .sidebar ul li.expandable>a:before {
+            content: "+";
+            margin-right: 5px;
+        }
+
+        .sidebar ul li.expandable.expanded>a:before {
+            content: "-";
+            margin-right: 5px;
+        }
+
+        .sidebar ul li.expanded ul {
+            display: block;
+        }
+
+        .main {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            flex-shrink: 0;
+        }
+
+        /* Additional styles for interactive sidebar */
+        .sidebar ul li:hover>a {
+            background-color: #ddd;
+            color: #000;
+        }
+
+        .sidebar ul li ul li:hover>a {
+            background-color: #f5f5f5;
+        }
+
+        /* Additional styles for responsive layout */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                max-width: none;
+                width: 100%;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+        }
+
+        /* Additional styles for main content */
+        #mainContent {
+            text-align: left;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .details-container-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .details-container {
+            flex: 1;
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .success-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .success-button:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: stretch;
+            align-content: stretch;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .sidebar {
+            background-color: #f2f2f2;
+            width: 250px;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+        }
+
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .tab {
+            display: inline-block;
+            padding-left: 22%;
+            padding-right: 22%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background-color: rgb(213, 195, 195);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .forum-container {
+            margin-top: 20px;
+        }
+
+        .comments-container {
+            margin-top: 20px;
+        }
+
+        .comment {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .comment img {
+            border-radius: 50%;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .comment-header p {
+            margin-left: 5px;
+        }
+
+        .comment-content p {
+            margin: 0;
+        }
+
+        .comment-footer {
+            font-size: 12px;
+            color: gray;
+        }
+
+        .light-hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 10px 0;
+        }
+
+        .primary-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0071f1;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            background-image: url("images/profile.jpg");
+            background-repeat: no-repeat;
+            background-position: center left;
+            background-size: 20px;
+            padding-left: 30px;
+            /* Adjust the value to make space for the icon */
+        }
+
+        .primary-button-comment {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0071f1;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            background-repeat: no-repeat;
+            background-position: center left;
+            background-size: 20px;
+            /* Adjust the value to make space for the icon */
+        }
+
+        .primary-button:hover {
+            background-color: #0056b3;
+        }
+
+        .styled-username {
+            color: rgb(69, 69, 81);
+            font-weight: bold;
+        }
+
+        /* CSS to use flexbox layout */
+        .comment {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .comment-header,
+        .comment-content,
+        .comment-footer,
+        .profile-logo-comment {
+            margin-bottom: 5px;
+        }
+
+        .comment-content {
+            text-align: left;
+        }
+
+        .comment-footer {
+            margin-left: auto;
+            /* This will right-align the date */
+        }
+    </style>
+
+    <style>
+        /* Styles for the modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Styles for the modal content */
+        .modal-content {
+            background-color: #000;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 4px;
+            height: 500px;
+            width: 600px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        /* Styles for the close button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Styles for the login form */
+        h2 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            background-color: #000;
+            color: white;
+            font-size: x-large;
+        }
+
+        button[type="submit"] {
+            padding: 10px 15px;
+            background-color: #0071f1;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: x-large;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #1179f0;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #0071f1;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: x-large;
+        }
+
+        button:hover {
+            background-color: #1179f0;
+        }
+
+        .message {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+
+    <style>
+        /* Styles for the signup modal */
+        .signup-modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        /* Styles for the signup modal content */
+        .signup-modal-content {
+            background-color: #000;
+            margin: 10% auto;
+            padding: 40px;
+            border-radius: 4px;
+            height: 600px;
+            width: 600px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        /* Styles for the signup modal header */
+        .signup-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        /* Styles for the signup modal title */
+        .signup-modal-title {
+            font-size: xx-large;
+            color: white;
+        }
+
+        /* Styles for the signup modal close button */
+        .signup-modal-close {
+            background-color: #ddd;
+            color: #333;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Styles for the signup modal close button on hover */
+        .signup-modal-close:hover {
+            background-color: #bbb;
+        }
+
+        /* Styles for the signup modal form */
+        .signup-modal-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Styles for the signup modal field */
+        .signup-modal-field {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        /* Styles for the signup modal label */
+        .signup-modal-label {
+            font-weight: bold;
+            width: 150px;
+        }
+
+        /* Styles for the signup modal input */
+        .signup-modal-input {
+            flex-grow: 1;
+            width: 100%;
+            /* Set the width to 100% */
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        /* Styles for the signup modal readonly input */
+        .signup-modal-readonly-input {
+            width: 100%;
+            /* Set the width to 100% */
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background-color: #f5f5f5;
+            font-size: 14px;
+        }
+
+        /* Styles for the signup modal buttons */
+        .signup-modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        /* Styles for the signup modal signup button */
+        .signup-modal-signup {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Styles for the signup modal signup button on hover */
+        .signup-modal-signup:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+    <style>
+        /* Styles for the comment section */
+        .comment-section {
+
+            margin: 20px auto;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            display: none;
+        }
+
+        /* Styles for the profile logo */
+        .profile-logo-comment {
+            width: 80px;
+            height: 80px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            float: left;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            color: white;
+        }
+
+        /* Styles for the comment text area */
+        .comment-textarea {
+            width: 100%;
+            height: 40px;
+            resize: vertical;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Styles for the post button */
+        .post-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .post-button:hover {
+            background-color: #45a049;
+        }
+
+        /* Styles for the buttons */
+        .button {
+            margin-right: 10px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            text-decoration: underline;
+        }
+
+        /* Styles for the comment */
+        .comment {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            align-items: left;
+        }
+
+        /* Styles for the comment content */
+        .comment-content {
+            margin-left: 10px;
+        }
+
+        /* Styles for the username */
+        .username {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        /* Styles for the timestamp */
+        .timestamp {
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+
+<body>
+    <header style="padding-left: 15%;">
+        <div class="logo">B</div>
+        <div class="logo">B</div>
+        <div class="logo">C</div>
+        <nav class="header-nav">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">News</a></li>
+                <li><a href="#">Sport</a></li>
+                <li><a href="#">Reel</a></li>
+                <li><a href="#">Worklife</a></li>
+                <li><a href="#">Travel</a></li>
+                <li><a href="#">Future</a></li>
+                <li><a href="#">Culture</a></li>
+                <li><a href="#">...</a></li>
+            </ul>
+        </nav>
+        <div class="search">
+            <input type="text" placeholder="Search BBC">
+            <button><img src="images/Search.png" width="15px" height="15px" alt="Search"></button>
+        </div>
+        <a id="btnLogOut" href="index.html" onclick="Logout()" class="logout"><img src="images/logout.jpg" width="15px"
+                height="15px" alt="Logout"> Logout</a>
+        <a href="UserDashboard.html" class="profile"><img src="images/Profile.jpg" width="15px" height="15px"
+                alt="Profile"> Profile</a>
+    </header>
+
+    <div class="news-header">
+        <h1 style="padding-left: 15%; font-size:40px">NEWS</h1>
+        <hr />
+    </div>
+
+
+    <div class="container">
+        <div class="sidebar">
+            <h3>Overview</h3>
+            <ul>
+                <li class="expandable">
+                    <a href="#">News</a>
+                    <ul>
+                        <li><a href="#" onclick="AddLatestNews()">Latest News</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="main">
+            <div id="mainContent">
+            </div>
+
+
+        </div>
+    </div>
+    <div class="footer">
+        &copy; 2023 BBC NEWS Dashboard. All rights reserved.
+    </div>
+
+    <!-- The modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="logo">B</div>
+            <div class="logo">B</div>
+            <div class="logo">C</div>
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h1 style="color: white;">Sign In with Tuvima</h1>
+            <form onsubmit="event.preventDefault(); loginUser();">
+                <input type="text" id="username" placeholder="Email or Username" required>
+
+                <input type="password" id="password" placeholder="Password" required>
+
+                <button type="submit">Sign In</button>
+
+                <br>
+
+                <a style="color: #3583dc; font-size: larger;" href="#">Need help signing in?</a>
+
+                <br><br>
+                <hr class="light-hr" />
+
+                <br>
+                <h3 style="color: white; font-size: larger; text-align: center;">Don’t have a Tuvima account?</h3>
+                <a style="color: #3583dc; font-size: larger; text-align: center;" href="#"
+                    onclick="openSignupModal()">Register Now</a>
+                <div id="message" class="message"></div>
+            </form>
+        </div>
+    </div>
+
+    <div id="signupModal" class="signup-modal">
+        <div class="signup-modal-content">
+            <div class="logo">B</div>
+            <div class="logo">B</div>
+            <div class="logo">C</div>
+            <span class="close" onclick="closeSignupModal()">&times;</span>
+            <div class="signup-modal-header">
+
+                <h1 style="color: white;">Register with Tuvima</h1>
+
+            </div>
+            <form class="signup-modal-form" onsubmit="event.preventDefault(); saveSignupData();">
+                <div id="divDateOfBirth">
+                    <label style="color: white; font-size: large;">What's your date of birth?</label>
+                    <br /><br />
+
+                    <select id="day" style="padding: 10px; background-color: #000; color: white; font-size: x-large;"
+                        name="day"></select>
+
+                    <select id="month" style="padding: 10px; background-color: #000; color: white; font-size: x-large;"
+                        name="month"></select>
+
+                    <select id="year" style="padding: 10px; background-color: #000; color: white; font-size: x-large;"
+                        name="year"></select>
+
+                    <br /><br /><br />
+                    <div>
+                        <button id="btnDateOfBirthContinue" type="button"
+                            onclick="showRegistrationDiv()">Continue</button>
+                    </div>
+                </div>
+
+
+                <div id="divRegistration" style="display: none;">
+                    <div>
+                        <input type="text" id="email" class="signup-modal-input" placeholder="Email or username"
+                            required />
+                    </div>
+
+                    <div>
+                        <input type="password" id="signuppassword" class="signup-modal-input" placeholder="Password"
+                            required />
+                    </div>
+                    <div>
+                        <input type="password" id="confirmPassword" class="signup-modal-input"
+                            placeholder="Confirm Password" required />
+                    </div>
+
+                    <div style="display: none;">
+                        <input type="text" id="tuvimaIdentity" class="signup-modal-readonly-input" readonly />
+                    </div>
+                    <div>
+                        <button id="btnRegistrationContinue" type="button" onclick="showNickNameDiv()">Register</button>
+                    </div>
+                </div>
+
+                <div id="divUserNickName" style="display: none;">
+                    <div>
+                        <input type="text" id="nickname" class="signup-modal-input" placeholder="Nickname" />
+                    </div>
+
+                    <div>
+                        <button id="btnSaveContinue" type="submit">Continue</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const expandableItems = document.querySelectorAll('.expandable > a');
+
+            expandableItems.forEach((link) => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const listItem = link.parentElement;
+                    listItem.classList.toggle('expanded');
+                });
+            });
+        });
+
+        function AddLatestNews() {
+
+            const mainContent = document.querySelector('#mainContent');
+            mainContent.innerHTML = `
+              <div class="details-container">
+                <h1>New Contract until 2028</h1>
+                <div class="profile-box">
+                  <div class="profile-logo">
+                    <p><strong>Posted:</strong> ${new Date().toDateString()}</p>
+                    <img src="images/News.jpg" width="100%" height="30%" alt="Profile">
+                    <p>Marcus Rashford has spent eight seasons as a Manchester United first-team player</p>
+                  </div>
+                </div>
+              </div>
+              
+              <br/>
+              <p>
+                England forward Marcus Rashford has signed a new deal to stay at Manchester United until 2028 worth £325,000-a-week.
+                <br><br>
+                The 25-year-old had been in talks with United for a considerable period, with his previous contract due to expire in 2024.
+                <br><br>
+                The striker enjoyed a resurgence under new manager Erik ten Hag last season, scoring 30 goals in 56 games.
+                <br><br>
+                Since his debut in 2016 against Midtjylland, Rashford has hit 123 goals in 359 games for his boyhood club.
+                <br><br>
+                Man Utd agree deal for Andre Onana and sign ex-defender Jonny Evans.
+                <br><br>
+                Rashford said: "I joined Manchester United as a seven-year-old boy with a dream. That same passion, pride, and determination to succeed still drives me every time I have the honor of wearing the shirt.
+                <br><br>
+                "I've already had some amazing experiences at this incredible club, but there is still a lot more to achieve and I remain relentlessly determined to win more trophies in the years ahead."
+                <br><br>
+                Rashford is believed to have dismissed more lucrative offers from within the Premier League and abroad to stay at Old Trafford, committing through to 30 June 2028 and backing Ten Hag to deliver more success.
+                <br><br>
+                He said: "I can assure you that I will give everything to help the team reach the level we are capable of, and I can feel the same determination around the dressing room. I couldn't be more excited for the future under this manager."
+                <br><br>
+                Rashford was one of three England players to suffer racist abuse after missing a penalty in the Euro 2020 final defeat by Italy.
+                <br><br>
+                He had shoulder surgery in August 2021, saying he must "listen to his body", before struggling for form and scoring only five times during a campaign that saw Ole Gunnar Solskjaer succeeded by interim boss Ralf Rangnick.
+                <br><br>
+                He was subsequently left out of Gareth Southgate's England squad in June 2022 for four Nations League matches.
+                <br><br>
+                Rashford's form last season turned following the World Cup, scoring 10 goals in as many Premier League games after the restart.
+                <br><br>
+                He helped Manchester United qualify for the Champions League and scored a goal in the Carabao Cup final victory over Newcastle United.
+                <br><br>
+                Red Devils football director John Murtough said Rashford has "epitomized what it takes to succeed as a Manchester United player".
+                <br><br>
+                "He is a brilliant talent but also humble, dedicated and driven," Murtough said. "As he enters his prime years, we know there is still so much more to come from him, and we can see the hunger that Marcus feels to achieve the highest levels of success here at Manchester United.
+                <br><br>
+                "Working with Erik ten Hag and his coaches is the perfect environment for Marcus to continue to develop into one of the best attacking players in the world."
+            </p>
+            
+              <div class="forum-container">
+                  
+                  <div class="tab-content active" id="activity-content">
+                    <h3 style="color:gray">Comments</h3>
+                    <h1>Join the conversation</h1>
+                    <h4 style="color:gray">Sign in to comment, reply and react</h4>
+                    <div id="divSignInOrSignUp">
+                        <button id="btnSignIn" onclick="openModal()" src="images/profile.jpg" width="40px" height="40px" alt="Profile" class="primary-button">Sign In with Tuvima</button> or <a id="btnSignUp" onclick="openSignupModal()" style="color:#0071f1" href="#"><strong>Register</strong></a>
+                    </div>
+                    <hr/>
+
+                    <div class="comment-section" id="divCommentSection">
+                        <div class="styled-username" id="divNickname"></div>
+                        <br/>
+                        <div class="profile-logo-comment" id="divLogoInitial"></div>
+                        <textarea class="comment-textarea" id="commentInput" placeholder="Write your comment..."></textarea>
+                        <button class="primary-button-comment" onclick="postComment()">Post</button>
+                        <div id="commentContainer" class="comments-container"></div>
+                      </div>
+                      <hr class="light-hr"> 
+                    <div class="comments-container">
+                      ${generateComments(10)}
+                    </div>
+                  </div>
+                  
+            `;
+
+            const tabs = document.querySelectorAll('.tab');
+            const contentContainer = document.querySelector('.content-container');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    const selectedContent = document.getElementById(`${tabId}-content`);
+                    contentContainer.querySelectorAll('.content').forEach(content => {
+                        content.style.display = 'none';
+                    });
+                    selectedContent.style.display = 'block';
+
+                    tabs.forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+                    tab.classList.add('active');
+
+                    const activeButton = document.querySelector('.success-button');
+                    activeButton.classList.toggle('active');
+                });
+            });
+        }
+
+        function generateComments(count) {
+            const comments = [
+                "Even though I don’t like united Rashford is a fantastic role model who’s not forgotten his roots. He was great last season and I hope he keeps it up.",
+                "On another positive note, it’s great to see that Van der Sar is out of intensive care!",
+                "Not sure what to make of Rashford. He can be brilliant for 3 months solid, then completely useless the next 3 months",
+                "Useless for 3 years",
+                "Been a great player for the club and a great campaigner against child poverty off the field. Says it all.",
+                "He'll be rubbish this season!",
+                "I am about to get my state pension after working for 45 years. I will get £203.85 per week to live on and this footballer is getting £325,000 per week. The whole world has gone mad. Obscene",
+                "Should have tried to be a footballer then",
+                "Man United did a thing and now here come the thousands of internet trolls to make fun of it with tired old repeated meme opinions even though they don't really even follow football they just like trolling for upvotes, what a world we live in! :)",
+                "The BBC entice it. Deliberately to draw traffic in, shows how bad finance has got at the beeb."
+            ];
+
+            const users = [
+                "PatrickBWFC",
+                "New to Mossley Hill",
+                "Yoshimi",
+                "kp",
+                "fatboyslim",
+                "Pope",
+                "Made Redundant Dave",
+                "CS",
+                "Woo87",
+                "WilyOldFox"
+            ];
+
+            let commentsHTML = '';
+            for (let i = 0; i < count; i++) {
+                const randomComment = comments[Math.floor(Math.random() * comments.length)];
+                const date = new Date().toDateString();
+                commentsHTML += `
+                <div class="comment">
+                  <div class="profile-logo-comment">
+                    <p>${users[i].charAt(0).toUpperCase()}</p>
+                  </div>
+                  <div class="comment-header  styled-username">${users[i].toUpperCase()}</div>
+                  <div class="comment-content">
+                    <p>${randomComment}</p>
+                  </div>
+                  <div class="comment-footer">
+                    <p>${date}</p>
+                  </div>
+                </div>
+                <hr class="light-hr">
+              `;
+            }
+            return commentsHTML;
+        }
+
+
+        AddLatestNews();
+    </script>
+
+    <script>
+        var modal = document.getElementById("myModal");
+        var originalLocation = null;
+
+        // Open the modal
+        function openModal() {
+            originalLocation = window.location.href;
+            modal.style.display = "block";
+        }
+
+        // Close the modal
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // Close the modal when clicking outside of it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        };
+
+        // Function to handle login form submission
+        function loginUser() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var message = document.getElementById("message");
+
+            // Retrieve the saved signup data from local storage
+            var signupData = JSON.parse(localStorage.getItem("signupData"));
+
+            localStorage.setItem("signinData", JSON.stringify(signupData));
+
+            if (signupData && signupData.email === username && signupData.password === password) {
+                // Successful login
+                message.textContent = "Successfully logged in!";
+                message.classList.add("success");
+                message.classList.remove("error");
+
+                closeModal();
+
+                var divCommentSection = document.getElementById("divCommentSection");
+                var divSignInOrSignUp = document.getElementById("divSignInOrSignUp");
+
+                if (localStorage.getItem("signinData") === null || localStorage.getItem("signinData") === 'undefined') {
+                    divCommentSection.style.display = "none";
+                    divSignInOrSignUp.style.display = "block";
+                } else {
+                    loadUserInfoFromLocalStorage();
+                    divCommentSection.style.display = "block";
+                    divSignInOrSignUp.style.display = "none";
+                }
+                // Perform any other necessary actions after successful login
+
+                // Redirect to the original location
+                if (originalLocation) {
+                    //window.location.href = originalLocation;
+                }
+            } else {
+                // Failed login
+                message.textContent = "Incorrect username or password.";
+                message.classList.add("error");
+                message.classList.remove("success");
+
+                // Perform any other necessary actions after failed login
+            }
+        }
+    </script>
+
+    <script>
+        // Get the signup modal element
+        var signupModal = document.getElementById("signupModal");
+
+        // Function to open the signup modal
+        function openSignupModal() {
+
+            closeModal();
+
+            // Generate TuvimaIdentity
+            var tuvimaIdentity = generateTuvimaIdentity();
+
+            // Place TuvimaIdentity into the textbox
+            document.getElementById("tuvimaIdentity").value = tuvimaIdentity;
+
+            var originalLocation = null;
+            originalLocation = window.location.href;
+            signupModal.style.display = "block";
+        }
+
+        // Function to close the signup modal
+        function closeSignupModal() {
+            signupModal.style.display = "none";
+        }
+
+        // Function to save the signup data into local storage
+        function saveSignupData() {
+            var email = document.getElementById("email").value;
+            var nickname = document.getElementById("nickname").value;
+            var password = document.getElementById("signuppassword").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+
+            // Check if password and confirm password match
+            if (password !== confirmPassword) {
+                alert("Password and Confirm Password do not match.");
+                return;
+            }
+
+            // Get the TuvimaIdentity from the textbox
+            var tuvimaIdentity = document.getElementById("tuvimaIdentity").value;
+
+            // Save the signup data to local storage
+            var signupData = {
+                email: email,
+                nickname: nickname,
+                password: password,
+                tuvimaIdentity: tuvimaIdentity
+            };
+
+            localStorage.clear();
+
+            localStorage.setItem("signupData", JSON.stringify(signupData));
+            localStorage.setItem("signinData", JSON.stringify(signupData));
+
+            // Perform any other necessary actions with the signup data
+            console.log("Signup data saved:");
+            console.log(signupData);
+
+            // Close the signup modal
+            closeSignupModal();
+
+            loadUserInfoFromLocalStorage();
+        }
+
+        // Function to generate TuvimaIdentity
+        function generateTuvimaIdentity() {
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var day = ("0" + now.getDate()).slice(-2);
+            var hours = ("0" + now.getHours()).slice(-2);
+            var minutes = ("0" + now.getMinutes()).slice(-2);
+            var seconds = ("0" + now.getSeconds()).slice(-2);
+
+            var tuvimaIdentity = `U-${year}${month}${day}${hours}${minutes}${seconds}@TuvimaIdentity`;
+
+            return tuvimaIdentity;
+        }
+
+
+    </script>
+
+    <script>
+        function postComment() {
+
+            var commentInput = document.getElementById("commentInput");
+            var commentContainer = document.getElementById("commentContainer");
+
+            if (commentInput.value != "") {
+                var userInfo = localStorage.getItem("signinData");
+                if (userInfo) {
+                    var parsedUserInfo = JSON.parse(userInfo);
+                }
+
+                // Create a new comment div
+                var newComment = document.createElement("div");
+                newComment.classList.add("comment");
+
+                // Create the profile logo div
+                var profileLogo = document.createElement("div");
+                profileLogo.classList.add("profile-logo-comment");
+                // Add the anchor element to the profile logo
+                var anchorElement = document.createElement("a");
+                anchorElement.setAttribute("href", "UserDashboard.html");
+                anchorElement.textContent = parsedUserInfo.nickname.charAt(0).toUpperCase();
+                anchorElement.style.color = "white";
+                anchorElement.style.textDecoration = "none";
+                profileLogo.appendChild(anchorElement);
+
+                // Create the username div
+                var usernameText = document.createElement("div");
+                usernameText.classList.add("comment-header");
+                usernameText.classList.add("styled-username");
+                usernameText.textContent = parsedUserInfo.nickname.toUpperCase();
+
+                // Create the timestamp div
+                var timestampText = document.createElement("div");
+                timestampText.classList.add("comment-footer");
+                timestampText.textContent = getFormattedTimestamp();
+
+                // Create the comment content div
+                var commentContent = document.createElement("div");
+                commentContent.classList.add("comment-content");
+                commentContent.textContent = commentInput.value;
+
+                // Append the elements to the new comment
+                newComment.appendChild(profileLogo);
+                newComment.appendChild(usernameText);
+                newComment.appendChild(commentContent);
+                newComment.appendChild(timestampText);
+
+                // Append the new comment to the comment container
+                commentContainer.appendChild(newComment);
+
+                // Clear the comment input field
+                commentInput.value = "";
+
+                // Save the comment to localStorage
+                saveCommentToLocalStorage(newComment.outerHTML);
+            }
+        }
+
+        function saveCommentToLocalStorage(commentHTML) {
+            var comments = localStorage.getItem("comments") || "[]";
+            var parsedComments = JSON.parse(comments);
+            parsedComments.push(commentHTML);
+            localStorage.setItem("comments", JSON.stringify(parsedComments));
+        }
+
+        function loadCommentsFromLocalStorage() {
+            var comments = localStorage.getItem("comments");
+            if (comments) {
+                var parsedComments = JSON.parse(comments);
+                var commentContainer = document.getElementById("commentContainer");
+                parsedComments.forEach(function (commentHTML) {
+                    var newComment = document.createElement("div");
+                    newComment.classList.add("comment");
+                    newComment.innerHTML = commentHTML;
+                    commentContainer.appendChild(newComment);
+                });
+            }
+        }
+
+        function loadUserInfoFromLocalStorage() {
+            var userInfo = localStorage.getItem("signinData");
+            if (userInfo) {
+                var parsedUserInfo = JSON.parse(userInfo);
+                var divLogoInitial = document.getElementById("divLogoInitial");
+                var divNickname = document.getElementById("divNickname");
+                var divCommentSection = document.getElementById("divCommentSection");
+                var divSignInOrSignUp = document.getElementById("divSignInOrSignUp");
+
+                if (localStorage.getItem("signinData") === null || localStorage.getItem("signinData") === 'undefined') {
+                    divCommentSection.style.display = "none";
+                    divSignInOrSignUp.style.display = "block";
+                } else {
+                    divCommentSection.style.display = "block";
+                    divSignInOrSignUp.style.display = "none";
+                }
+
+
+                divNickname.textContent = parsedUserInfo.nickname.toUpperCase();
+
+                // Create an anchor element for the nickname
+                var anchorElement = document.createElement("a");
+                anchorElement.setAttribute("href", "UserDashboard.html"); // Replace "#" with the URL you want to link to
+                anchorElement.textContent = parsedUserInfo.nickname.charAt(0).toUpperCase();
+
+                anchorElement.style.color = "white";
+                anchorElement.style.textDecoration = "none";
+                divLogoInitial.appendChild(anchorElement);
+
+                // Load comments from localStorage on page load
+                loadCommentsFromLocalStorage();
+            }
+        }
+
+
+        function getFormattedTimestamp() {
+            var now = new Date();
+            var options = { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+            return now.toLocaleString('en-US', options);
+        }
+
+        function Logout() {
+            localStorage.removeItem("signinData");
+        }
+
+        loadUserInfoFromLocalStorage();
+
+    </script>
+
+    <script>
+        // Function to populate the days dropdown
+        function populateDays() {
+            var daySelect = document.getElementById("day");
+            for (var day = 1; day <= 31; day++) {
+                var option = document.createElement("option");
+                option.text = day;
+                option.value = day;
+                daySelect.appendChild(option);
+            }
+        }
+
+        // Function to populate the months dropdown
+        function populateMonths() {
+            var monthSelect = document.getElementById("month");
+            var months = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            for (var i = 0; i < months.length; i++) {
+                var option = document.createElement("option");
+                option.text = months[i];
+                option.value = i + 1;
+                monthSelect.appendChild(option);
+            }
+        }
+
+        // Function to populate the years dropdown
+        function populateYears() {
+            var yearSelect = document.getElementById("year");
+            var currentYear = new Date().getFullYear();
+            for (var year = currentYear; year >= currentYear - 100; year--) {
+                var option = document.createElement("option");
+                option.text = year;
+                option.value = year;
+                yearSelect.appendChild(option);
+            }
+        }
+
+        // Call the functions to populate the dropdowns
+        populateDays();
+        populateMonths();
+        populateYears();
+
+        function showRegistrationDiv() {
+            var divDateOfBirth = document.getElementById("divDateOfBirth");
+            var divRegistration = document.getElementById("divRegistration");
+
+            divDateOfBirth.style.display = "none";
+            divRegistration.style.display = "block";
+        }
+
+        function showNickNameDiv() {
+            var divRegistration = document.getElementById("divRegistration");
+            var divUserNickName = document.getElementById("divUserNickName");
+
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("signuppassword").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (email === "") {
+                alert("Email or username required.");
+                return;
+            }
+
+            else if (password === "") {
+                alert("Password required.");
+                return;
+            }
+
+            else if (confirmPassword === "") {
+                alert("Confirm Password required.");
+                return;
+            }
+
+            else if (password !== confirmPassword) {
+                alert("Password and Confirm Password do not match.");
+                return;
+            }
+
+            else {
+                divRegistration.style.display = "none";
+                divUserNickName.style.display = "block";
+            }
+        }
+
+    </script>
+</body>
+
+</html>

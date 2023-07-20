@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>User Dashboard</title>
+  <style>
+    /* CSS styles for header, navbar, sidebar, content, and footer */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .news-header {
+      background-color: rgb(29, 189, 210);
+      color: white;
+      padding: 15px;
+      font-size: x-large;
+      text-align: left;
+    }
+
+    .news-header h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: bold;
+      /* Updated to bold */
+    }
+
+    header {
+      background-color: #f9f9f9;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    header .logo {
+      display: inline-block;
+      background-color: rgb(29, 189, 210);
+      color: #fff;
+      font-weight: bold;
+      font-size: 20px;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      margin-right: 5px;
+    }
+
+    header .search {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+    }
+
+    header .search input[type="text"] {
+      margin-right: 5px;
+    }
+
+    header .search button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    header .logout,
+    header .profile {
+      margin-left: 10px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    nav {
+      background-color: #f2f2f2;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      height: 50px;
+      /* Increased height to 50px */
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    nav ul li {
+      margin-right: 10px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .sidebar {
+      background-color: #f2f2f2;
+      width: 250px;
+      /* Increased width */
+      padding: 20px;
+      /* Increased padding */
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar ul li {
+      margin-bottom: 10px;
+      /* Increased margin-bottom */
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      display: block;
+      /* Added display block to make the links fill the entire width */
+      padding: 5px;
+      /* Added padding */
+    }
+
+    .sidebar ul li ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      margin-left: 10px;
+      /* Adjusted the indentation */
+      display: none;
+      /* Hidden by default */
+    }
+
+    .sidebar ul li ul li a {
+      font-weight: normal;
+      padding: 2px 0;
+      /* Added padding */
+    }
+
+    .sidebar ul li a:before {
+      content: ".";
+      margin-right: 5px;
+    }
+
+    .sidebar ul li.expandable>a:before {
+      content: "+";
+      margin-right: 5px;
+    }
+
+    .sidebar ul li.expandable.expanded>a:before {
+      content: "-";
+      margin-right: 5px;
+    }
+
+    .sidebar ul li.expanded ul {
+      display: block;
+      /* Show the sublist when parent item is expanded */
+    }
+
+    .main {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 800px;
+      /* Adjust the maximum width as per your requirement */
+      padding: 20px;
+    }
+
+    .footer {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      flex-shrink: 0;
+    }
+
+    /* Additional styles for interactive sidebar */
+    .sidebar ul li:hover>a {
+      background-color: #ddd;
+      color: #000;
+    }
+
+    .sidebar ul li ul li:hover>a {
+      background-color: #f5f5f5;
+    }
+
+    /* Additional styles for responsive layout */
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+
+      .main {
+        max-width: none;
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+    }
+
+    /* Additional styles for main content */
+    #mainContent {
+      text-align: left;
+    }
+
+    .details-container {
+      border: 2px solid #ddd;
+      background-color: #f5f5f5;
+      padding: 20px;
+      border-radius: 8px;
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .success-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .success-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">T</div>
+    <div class="logo">U</div>
+    <div class="logo">V</div>
+    <div class="logo">I</div>
+    <div class="logo">M</div>
+    <div class="logo">A</div>
+    
+    <div class="search">
+      <input type="text" placeholder="Search">
+      <button><img src="images/Search.png" width="15px" height="15px" alt="Search"></button>
+    </div>
+    <a href="#" class="logout"><img src="images/logout.jpg" width="15px" height="15px" alt="Logout"> Logout</a>
+    <a href="#" class="profile"><img src="images/Profile.jpg" width="15px" height="15px" alt="Profile"> Profile</a>
+  </header>
+
+  <div class="news-header">
+    <h1><strong>Tuvima Identity</strong></h1> <!-- Added <strong> tag for bold effect -->
+  </div>
+
+  <div class="sidebar">
+    <h3>Overview</h3>
+    <ul>
+      <li class="expandable">
+        <a href="#">Personas</a>
+        <ul>
+          <li><a href="#" onclick="AddTuvimaPersona()">Tuvima Persona</a></li>
+          <li><a href="#" onclick="AddBBCNewsPersona()">BBC News Persona</a></li>
+          <li><a href="#" onclick="AddBBCSportsPersona()">BBC Sports Persona</a></li>
+        </ul>
+      </li>
+      <li class="expandable">
+        <a href="#">Payments</a>
+        <ul>
+          <li><a href="#">Subscriptions</a></li>
+          <li><a href="#">Billing</a></li>
+        </ul>
+      </li>
+      <li class="expandable">
+        <a href="#">Preferences</a>
+        <ul>
+          <li><a href="#">Tuvima Email</a></li>
+          <li><a href="#">BBC News Persona Email</a></li>
+          <li><a href="#">BBC Sports Persona Email</a></li>
+        </ul>
+      </li>
+      <li class="expandable">
+        <a href="#">Security & Policy</a>
+        <ul>
+          <li><a href="#">Password</a></li>
+          <li><a href="#">Logins and Devices</a></li>
+          <li><a href="#">Multifactor Authentication</a></li>
+        </ul>
+      </li>
+      <li class="expandable">
+        <a href="#">Others</a>
+        <ul>
+          <li><a href="#">Activity</a></li>
+          <li><a href="#">Comments</a></li>
+          <li><a href="#">Communities</a></li>
+          <li><a href="#">Community Events</a></li>
+          <li><a href="#">Community Feeds</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <div id="mainContent">
+    </div>
+  </div>
+
+  <div class="footer">
+    &copy; 2023 Tuvima Identity Dashboard. All rights reserved.
+  </div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const expandableItems = document.querySelectorAll('.expandable > a');
+
+      expandableItems.forEach((link) => {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          const listItem = link.parentElement;
+          listItem.classList.toggle('expanded');
+
+
+        });
+      });
+    });
+
+    function AddTuvimaPersona() {
+      const mainContent = document.querySelector('#mainContent');
+      mainContent.innerHTML = ``;
+      mainContent.innerHTML = `
+        <div class="details-container">
+          <h1>Tuvima Persona</h1>
+          <div class="profile-box">
+            <div class="profile-logo">
+              <img src="images/profile.jpg" width="100px" height="100px" alt="Profile">
+            </div>
+            <div class="profile-info">
+            </div>
+          </div>
+          <p><strong>Email Address:</strong> <a href="mailto:shayaan@gmail.com">shayaan@gmail.com</a></p>
+          <p><strong>Status:</strong> <button class="success-button">Active</button></p>
+          <p><strong>Subscription Points:</strong> $3000</p>
+          <p><strong>Subscription Plans:</strong> Tuvima Plus</p>
+        </div>
+      `;
+    }
+
+    function AddBBCNewsPersona() {
+      const mainContent = document.querySelector('#mainContent');
+      mainContent.innerHTML = ``;
+      mainContent.innerHTML = `
+        <div class="details-container">
+          <h1>BBC News Persona</h1>
+          <div class="profile-box">
+            <div class="profile-logo">
+              <img src="images/profile.jpg" width="100px" height="100px" alt="Profile">
+            </div>
+            <div class="profile-info">
+            </div>
+          </div>
+          <p><strong>Persona Identity:</strong> <a href="#">U-951753681@tuvimaIdentity</a></p>
+          <p><strong>Status:</strong> <button class="success-button">Active</button></p>
+          <p><strong>Subscription Points:</strong> $500</p>
+          <p><strong>Subscription Plans:</strong> Tuvima Plus</p>
+        </div>
+      `;
+    }
+
+    function AddBBCSportsPersona() {
+      const mainContent = document.querySelector('#mainContent');
+      mainContent.innerHTML = ``;
+      mainContent.innerHTML = `
+        <div class="details-container">
+          <h1>BBC Sports Persona</h1>
+          <div class="profile-box">
+            <div class="profile-logo">
+              <img src="images/profile.jpg" width="100px" height="100px" alt="Profile">
+            </div>
+            <div class="profile-info">
+            </div>
+          </div>
+          <p><strong>Persona Identity:</strong> <a href="#">U-686897851@tuvimaIdentity</a></p>
+          <p><strong>Status:</strong> <button class="success-button">Active</button></p>
+          <p><strong>Subscription Points:</strong> $500</p>
+          <p><strong>Subscription Plans:</strong> Tuvima Standard</p>
+        </div>
+      `;
+    }
+    
+
+  </script>
+
+</body>
+
+</html>
