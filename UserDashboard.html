@@ -518,10 +518,10 @@
         </nav>
         <div class="search">
             <input type="text" placeholder="Search BBC">
-            <button><img src="images/Search.png" width="15px" height="15px" alt="Search"></button>
+            <button><img src="Images/Search.png" width="15px" height="15px" alt="Search"></button>
         </div>
-        <a href="#" class="logout"><img src="images/logout.jpg" width="15px" height="15px" alt="Logout"> Logout</a>
-        <a href="#" class="profile" onclick="AddProfile()"><img src="images/Profile.jpg" width="15px" height="15px"
+        <a href="#" class="logout"><img src="Images/logout.jpg" width="15px" height="15px" alt="Logout"> Logout</a>
+        <a href="#" class="profile" onclick="AddProfile()"><img src="Images/Profile.jpg" width="15px" height="15px"
                 alt="Profile"> Profile</a>
     </header>
 
@@ -597,18 +597,18 @@
                 <h1>BBC News Persona</h1>
                 <div class="profile-box">
                   <div class="profile-logo">
-                    <img src="images/profile.jpg" width="100px" height="100px" alt="Profile">
+                    <img src="Images/profile.jpg" width="100px" height="100px" alt="Profile">
                     <h3>Nickname: <span id="personaNickName"></span></h3>
                     <h3>Identity: <span id="profilePersonaIdentity"></span></h3>
                   </div>
                   <div class="profile-info">
                     <div class="additional-info">
-                      <div class="info-item"><img src="images/Posts.jpg" alt="Posts Logo" width="20px" height="20px"><p><strong>Posts:</strong> 100</p></div>
-                      <div class="info-item"><img src="images/Registered.png" alt="Registered Logo" width="20px" height="20px"><p><strong>Registered:</strong> January 1, 2023</p></div>
-                      <div class="info-item"><img src="images/LastVisited.png" alt="Last Visited Logo" width="20px" height="20px"><p><strong>Last Visited:</strong> July 15, 2023</p></div>
-                      <div class="info-item"><img src="images/Reputation.png" alt="Reputation Logo" width="20px" height="20px"><p><strong>Reputation:</strong> 500</p></div>
-                      <div class="info-item"><img src="images/Answers.png" alt="Community Answers Logo" width="20px" height="20px"><p><strong>Community Answers:</strong> 50</p></div>
-                      <div class="info-item"><img src="images/Badge.png" alt="Badges Points Logo" width="20px" height="20px"><p><strong>Badges Points:</strong> 200</p></div>
+                      <div class="info-item"><img src="Images/Posts.jpg" alt="Posts Logo" width="20px" height="20px"><p><strong>Posts:</strong> 100</p></div>
+                      <div class="info-item"><img src="Images/Registered.png" alt="Registered Logo" width="20px" height="20px"><p><strong>Registered:</strong> January 1, 2023</p></div>
+                      <div class="info-item"><img src="Images/LastVisited.png" alt="Last Visited Logo" width="20px" height="20px"><p><strong>Last Visited:</strong> July 15, 2023</p></div>
+                      <div class="info-item"><img src="Images/Reputation.png" alt="Reputation Logo" width="20px" height="20px"><p><strong>Reputation:</strong> 500</p></div>
+                      <div class="info-item"><img src="Images/Answers.png" alt="Community Answers Logo" width="20px" height="20px"><p><strong>Community Answers:</strong> 50</p></div>
+                      <div class="info-item"><img src="Images/Badge.png" alt="Badges Points Logo" width="20px" height="20px"><p><strong>Badges Points:</strong> 200</p></div>
                     </div>
                   </div>
                 </div>
@@ -690,7 +690,7 @@
                 commentsHTML += `
                 <div class="comment">
                   <div class="comment-header">
-                    <img src="images/profile.jpg" width="40px" height="40px" alt="Profile">
+                    <img src="Images/profile.jpg" width="40px" height="40px" alt="Profile">
                     <p>John Doe</p>
                   </div>
                   <div class="comment-content">
@@ -710,7 +710,7 @@
             let imagesHTML = '';
             for (let i = 1; i <= count; i++) {
                 const imageNumber = i;
-                imagesHTML += `<img src="images/SharedImages/${imageNumber}.jpg" alt="Image ${imageNumber}" height=400px; width=780px;>
+                imagesHTML += `<img src="Images/SharedImages/${imageNumber}.jpg" alt="Image ${imageNumber}" height=400px; width=780px;>
                             <p><strong>Shared Date:</strong> ${new Date().toDateString()}</p>`;
             }
             return imagesHTML;
