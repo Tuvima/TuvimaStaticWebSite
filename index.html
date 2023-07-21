@@ -783,9 +783,9 @@
             <span class="close" onclick="closeModal()">&times;</span>
             <h1 style="color: white;">Sign In with Tuvima</h1>
             <form onsubmit="event.preventDefault(); loginUser();">
-                <input type="text" id="username" placeholder="Email or Username" required>
+                <input type="text" id="username" value="smithbob@gmail.com" placeholder="Email or Username" required>
 
-                <input type="password" id="password" placeholder="Password" required>
+                <input type="password" value="smithbob" id="password" placeholder="Password" required>
 
                 <button type="submit">Sign In</button>
 
@@ -840,16 +840,16 @@
 
                 <div id="divRegistration" style="display: none;">
                     <div>
-                        <input type="text" id="email" class="signup-modal-input" placeholder="Email or username"
+                        <input type="text" id="email" value="smithbob@gmail.com" class="signup-modal-input" placeholder="Email or username"
                             required />
                     </div>
 
                     <div>
-                        <input type="password" id="signuppassword" class="signup-modal-input" placeholder="Password"
+                        <input type="password" value="smithbob" id="signuppassword" class="signup-modal-input" placeholder="Password"
                             required />
                     </div>
                     <div>
-                        <input type="password" id="confirmPassword" class="signup-modal-input"
+                        <input type="password" value="smithbob" id="confirmPassword" class="signup-modal-input"
                             placeholder="Confirm Password" required />
                     </div>
 
@@ -863,7 +863,7 @@
 
                 <div id="divUserNickName" style="display: none;">
                     <div>
-                        <input type="text" id="nickname" class="signup-modal-input" placeholder="Nickname" />
+                        <input type="text" value="News Junky" id="nickname" class="signup-modal-input" placeholder="Nickname" />
                     </div>
 
                     <div>
@@ -1357,8 +1357,8 @@
             var currentYear = new Date().getFullYear();
             for (var year = currentYear; year >= currentYear - 100; year--) {
                 var option = document.createElement("option");
-                option.text = year;
-                option.value = year;
+                option.text = "2000";
+                option.value = "2000";
                 yearSelect.appendChild(option);
             }
         }
