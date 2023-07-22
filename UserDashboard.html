@@ -534,9 +534,21 @@
             <h3>Overview</h3>
             <ul>
                 <li class="expandable">
-                    <a href="#">Profile</a>
+                    <a href="#">Accounts</a>
                     <ul>
-                        <li><a href="#" onclick="AddProfile()">Profile Setting</a></li>
+                        <li><a href="TuvimaDashboard.html">Tuvima Account</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#" onclick="AddProfile()">Setting</a></li>
+                    </ul>
+                </li>
+                <li class="expandable">
+                    <a href="#">Activity</a>
+                    <ul>
+                        <li><a href="#" onclick="AddActivity()">Activities</a></li>
+                        <li><a href="#" onclick="AddPosts()">Posts</a></li>
+                        <li><a href="#">Comments</a></li>
+                        <li><a href="#">Shares</a></li>
                     </ul>
                 </li>
                 <li class="expandable">
@@ -555,13 +567,6 @@
                     <a href="#">Security & Policy</a>
                     <ul>
                         <li><a href="#" onclick="AddPassword()">Password</a></li>
-                    </ul>
-                </li>
-                <li class="expandable">
-                    <a href="#">Others</a>
-                    <ul>
-                        <li><a href="#" onclick="AddActivity()">Activities</a></li>
-                        <li><a href="#" onclick="AddPosts()">Posts</a></li>
                     </ul>
                 </li>
             </ul>
@@ -886,7 +891,7 @@
               <br/>
               <div class="forum-container">
                 <div class="tab-content active" id="activity-content">
-                  <h2>Profile Setting</h2>
+                  <h2>Setting</h2>
                   <hr/>
                   <div class="profile-container">
                     <label for="nickName">Nickname:</label>
