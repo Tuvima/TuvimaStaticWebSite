@@ -362,7 +362,7 @@
     .comment-header {
       display: flex;
       align-items: center;
-      margin-right: 20px;
+      padding: 10px;
     }
 
     .comment-header p {
@@ -371,14 +371,11 @@
 
     .comment-content p {
       margin: 0;
-      padding-top: 25%;
-      padding-left: 10%;
     }
 
     .comment-footer {
       font-size: 12px;
       color: gray;
-      padding: 10%;
     }
 
     .light-hr {
@@ -497,6 +494,50 @@
     .profile-button:active {
       background-color: #3e8e41;
     }
+
+    .comment-header,
+    .comment-content,
+    .comment-footer,
+    .profile-logo-comment {
+      margin-bottom: 5px;
+    }
+
+    .comment-content {
+      text-align: left;
+    }
+
+    .comment-footer {
+      margin-left: auto;
+    }
+
+    /* This will right-align the date */
+
+    /* Styles for the profile logo */
+    .profile-logo-comment {
+      width: 80px;
+      height: 80px;
+      background-color: #ccc;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      float: left;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 24px;
+      color: white;
+    }
+
+    /* Styles for the comment text area */
+    .comment-textarea {
+      width: 100%;
+      height: 40px;
+      resize: vertical;
+      margin-bottom: 10px;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
   </style>
 </head>
 
@@ -531,6 +572,12 @@
           <a href="#">Accounts</a>
           <ul>
             <li><a href="#" onclick="AddTuvimaPersona()">Tuvima Account</a></li>
+          </ul>
+          <ul>
+            <li><a href="UserDashboard.html">BBC Account</a></li>
+          </ul>
+          <ul>
+            <li><a href="#">CNN Account</a></li>
           </ul>
           <ul>
             <li><a href="#" onclick="AddProfile()">Setting</a></li>
@@ -714,7 +761,7 @@
                     <h2>Activities</h2>
                     <hr/>
                     <div class="comments-container">
-                      ${generateComments(10)}
+                      ${generateCommentsForBBC(10)}
                     </div>
                   </div>
                   
@@ -794,7 +841,7 @@
                     <h2>Activities</h2>
                     <hr/>
                     <div class="comments-container">
-                      ${generateComments(10)}
+                      ${generateCommentsForCNN(10)}
                     </div>
                   </div>
                   
@@ -833,37 +880,150 @@
 
     function generateComments(count) {
       const comments = [
-        "A Great Win of England against Pakistan Men's T20 World cup!",
-        "Interesting discussion going on in the forum.",
-        "I completely agree with the points made in the post.",
-        "This is an excellent resource. Thanks for sharing!",
-        "I'm looking forward to the upcoming events.",
-        "The community here is very helpful and supportive.",
-        "Congratulations to the team for the successful launch!",
-        "I have a question regarding the latest news. Can someone help?",
-        "The article provided valuable insights into the topic.",
-        "I appreciate the effort put into organizing this forum."
+        "It is great News!",
+        "We all know about that",
+        "I am glad to hear about that",
+        "Not a good news for me!",
+        "Okay! what should I do?",
+        "I work hard for that",
+        "I dont care about this",
+        "We were expecting that Result!",
+        "Poor performance",
+        "Worst rules!"
+      ];
+
+      const users = [
+        "NEWS JUNCKY",
+        "NEWS LOVER",
+        "NEWS LOVER",
+        "NEWS LOVER",
+        "NEWS JUNCKY",
+        "NEWS JUNCKY",
+        "NEWS JUNCKY",
+        "NEWS LOVER",
+        "NEWS JUNCKY",
+        "NEWS LOVER",
       ];
 
       let commentsHTML = '';
-      for (let i = 1; i <= count; i++) {
+      for (let i = 0; i < count; i++) {
         const randomComment = comments[Math.floor(Math.random() * comments.length)];
         const date = new Date().toDateString();
         commentsHTML += `
-                <div class="comment">
-                  <div class="comment-header">
-                    <img src="Images/Profile.jpg" width="40px" height="40px" alt="Profile">
-                    <p>NEWS JUNKY</p>
-                  </div>
-                  <div class="comment-content">
-                    <p>${randomComment}</p>
-                  </div>
-                  <div class="comment-footer">
-                    <p>${date}</p>
-                  </div>
-                </div>
-                <hr class="light-hr">
-              `;
+          <div class="comment">
+            <div class="profile-logo-comment">
+              <p>${users[i].charAt(0).toUpperCase()}</p>
+            </div>
+            <div class="comment-header  styled-username">${users[i].toUpperCase()}</div>
+            <div class="comment-content">
+              <p>${randomComment}</p>
+            </div>
+            <div class="comment-footer">
+              <p>${date}</p>
+            </div>
+          </div>
+          <hr class="light-hr">
+        `;
+      }
+      return commentsHTML;
+    }
+
+    function generateCommentsForBBC(count) {
+      const comments = [
+        "It is great News!",
+        "We all know about that",
+        "I am glad to hear about that",
+        "Not a good news for me!",
+        "Okay! what should I do?",
+        "I work hard for that",
+        "I dont care about this",
+        "We were expecting that Result!",
+        "Poor performance",
+        "Worst rules!"
+      ];
+
+      const users = [
+        "NEWS JUNCKY",
+        "NEWS JUNCKY",
+        "NEWS JUNCKY",
+        "NEWS JUNCKY",
+        "NEWS JUNCKY",
+        "NEWS JUNCKY",
+        "NEWS JUNCKY",
+        "NEWS JUNCKY",
+        "NEWS JUNCKY",
+        "NEWS JUNCKY",
+      ];
+
+      let commentsHTML = '';
+      for (let i = 0; i < count; i++) {
+        const randomComment = comments[Math.floor(Math.random() * comments.length)];
+        const date = new Date().toDateString();
+        commentsHTML += `
+          <div class="comment">
+            <div class="profile-logo-comment">
+              <p>${users[i].charAt(0).toUpperCase()}</p>
+            </div>
+            <div class="comment-header  styled-username">${users[i].toUpperCase()}</div>
+            <div class="comment-content">
+              <p>${randomComment}</p>
+            </div>
+            <div class="comment-footer">
+              <p>${date}</p>
+            </div>
+          </div>
+          <hr class="light-hr">
+        `;
+      }
+      return commentsHTML;
+    }
+
+    function generateCommentsForCNN(count) {
+      const comments = [
+        "It is great News!",
+        "We all know about that",
+        "I am glad to hear about that",
+        "Not a good news for me!",
+        "Okay! what should I do?",
+        "I work hard for that",
+        "I dont care about this",
+        "We were expecting that Result!",
+        "Poor performance",
+        "Worst rules!"
+      ];
+
+      const users = [
+        "NEWS LOVER",
+        "NEWS LOVER",
+        "NEWS LOVER",
+        "NEWS LOVER",
+        "NEWS LOVER",
+        "NEWS LOVER",
+        "NEWS LOVER",
+        "NEWS LOVER",
+        "NEWS LOVER",
+        "NEWS LOVER",
+      ];
+
+      let commentsHTML = '';
+      for (let i = 0; i < count; i++) {
+        const randomComment = comments[Math.floor(Math.random() * comments.length)];
+        const date = new Date().toDateString();
+        commentsHTML += `
+          <div class="comment">
+            <div class="profile-logo-comment">
+              <p>${users[i].charAt(0).toUpperCase()}</p>
+            </div>
+            <div class="comment-header  styled-username">${users[i].toUpperCase()}</div>
+            <div class="comment-content">
+              <p>${randomComment}</p>
+            </div>
+            <div class="comment-footer">
+              <p>${date}</p>
+            </div>
+          </div>
+          <hr class="light-hr">
+        `;
       }
       return commentsHTML;
     }
