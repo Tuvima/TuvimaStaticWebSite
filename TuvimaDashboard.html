@@ -538,6 +538,14 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
+
+    .subscription-div {
+      background-color: rgb(216, 206, 206);
+      padding: 20px;
+      width: 95%;
+      border-radius: 4px;
+      color: black;
+    }
   </style>
 </head>
 
@@ -560,7 +568,7 @@
   </header>
 
   <div class="news-header">
-    <h1><strong>Tuvima Identity</strong></h1>
+    <h1 style="font-size: xx-large;"><strong>Tuvima Identity</strong></h1>
     <hr class="light-hr" />
   </div>
 
@@ -649,29 +657,39 @@
                 <div class="profile-logo">
                   <img src="Images/Profile.jpg" width="100px" height="100px" alt="Profile">
                   <h3>Email Address: <span id="realEmailAddress"></span></h3>
+                  <p>Gender: <span>Male</span></p>
+                  <p>Profession: <span>Lawyer</span></p>
+                  <p>State: <span>Alabama</span></p>
                 </div>
                 <div class="profile-info">
                   <div class="additional-info">
-                    <div class="info-item"><img src="Images/Posts.jpg" alt="Posts Logo" width="20px" height="20px"><p><strong>Posts:</strong> 100</p></div>
+                    <div class="info-item"><img src="Images/Posts.jpg" alt="Posts Logo" width="20px" height="20px"><p><strong>Posts:</strong> 200</p></div>
                     <div class="info-item"><img src="Images/Registered.png" alt="Registered Logo" width="20px" height="20px"><p><strong>Registered:</strong> January 1, 2023</p></div>
                     <div class="info-item"><img src="Images/LastVisited.png" alt="Last Visited Logo" width="20px" height="20px"><p><strong>Last Visited:</strong> July 15, 2023</p></div>
-                    <div class="info-item"><img src="Images/Reputation.png" alt="Reputation Logo" width="20px" height="20px"><p><strong>Reputation:</strong> 500</p></div>
-                    <div class="info-item"><img src="Images/Answers.png" alt="Community Answers Logo" width="20px" height="20px"><p><strong>Community Answers:</strong> 50</p></div>
-                    <div class="info-item"><img src="Images/Badge.png" alt="Badges Points Logo" width="20px" height="20px"><p><strong>Badges Points:</strong> 200</p></div>
+                    <div class="info-item"><img src="Images/Reputation.png" alt="Reputation Logo" width="20px" height="20px"><p><strong>Reputation:</strong> 1000</p></div>
+                    <div class="info-item"><img src="Images/Answers.png" alt="Community Answers Logo" width="20px" height="20px"><p><strong>Community Answers:</strong> 100</p></div>
+                    <div class="info-item"><img src="Images/Badge.png" alt="Badges Points Logo" width="20px" height="20px"><p><strong>Badges Points:</strong> 400</p></div>
                   </div>
                 </div>
               </div>
               
               <p><strong>Status:</strong> <button class="success-button active">Active</button></p>
-              <p><strong>Subscription Points:</strong> 450</p>
-              <p><strong>Subscription Plans:</strong> BBC Plus + </p>
-              <p><strong>Subscription Plans:</strong> BBC Standard </p>
+              <p><strong>Subscription Points:</strong> 900</p>
+              <h1>Your Subscriptions</h1>
+              <div class="subscription-div">
+                <p><strong>BBC Plus: </strong> Subscription Points: 300</p>
+                <p><strong>BBC Standard: </strong> Subscription Points: 150</p>
+                <p><strong>CNN Plus: </strong>Subscription Points: 300</p>
+                <p><strong>CNN Standard:</strong> Subscription Points: 150</p>
+              </div>
             </div>
             
             <br/>
             
             <div class="forum-container">
+              <h1>Portals Activities</h1>
                 <div class="tabs-container">
+                  
                   <div class="tab active" id="activity-tab" onclick="showTab('activity')">Activity</div>
                   <div class="tab" id="image-tab" onclick="showTab('image')">Images</div>
                 </div>
@@ -744,8 +762,12 @@
                 
                 <p><strong>Status:</strong> <button class="success-button active">Active</button></p>
                 <p><strong>Subscription Points:</strong> 450</p>
-                <p><strong>Subscription Plans:</strong> BBC Plus + </p>
-                <p><strong>Subscription Plans:</strong> BBC Standard </p>
+                <h1>Your Subscriptions</h1>
+                <div class="subscription-div">
+                  <p><strong>BBC Plus: </strong> Subscription Points: 300</p>
+                  <p><strong>BBC Standard: </strong> Subscription Points: 150</p>
+                </div>
+                </div>
               </div>
               
               <br/>
@@ -823,9 +845,13 @@
                 </div>
                 
                 <p><strong>Status:</strong> <button class="success-button active">Active</button></p>
+               
                 <p><strong>Subscription Points:</strong> 450</p>
-                <p><strong>Subscription Plans:</strong> CNN Plus + </p>
-                <p><strong>Subscription Plans:</strong> CNN Standard </p>
+                <h1>Your Subscriptions</h1>
+                <div class="subscription-div">
+                  <p><strong>CNN Plus: </strong>Subscription Points: 300</p>
+                  <p><strong>CNN Standard:</strong> Subscription Points: 150</p>
+                </div>
               </div>
               
               <br/>
