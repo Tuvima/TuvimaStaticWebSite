@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tuvima Admin Dashboard</title>
+    <style>
+        /* CSS styles for header, navbar, sidebar, content, and footer */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .news-header {
+            background-color: rgb(20, 46, 50);
+            color: white;
+            padding: 15px;
+            font-size: x-large;
+            text-align: left;
+        }
+
+        .news-header h1 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        header {
+            background-color: #f9f9f9;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        header .logo {
+            display: inline-block;
+            background-color: rgb(20, 46, 50);
+            color: #fff;
+            font-weight: bold;
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 5px;
+        }
+
+        header .search {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+
+        header .search input[type="text"] {
+            margin-right: 5px;
+        }
+
+        header .search button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        header .logout,
+        header .profile {
+            margin-left: 10px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        nav {
+            background-color: #f2f2f2;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            height: 50px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .sidebar {
+            background-color: #f2f2f2;
+            width: 250px;
+            padding: 20px;
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            display: block;
+            padding: 5px;
+        }
+
+        .sidebar ul li ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            margin-left: 10px;
+            display: none;
+        }
+
+        .sidebar ul li ul li a {
+            font-weight: normal;
+            padding: 2px 0;
+        }
+
+        .sidebar ul li a:before {
+            content: ".";
+            margin-right: 5px;
+        }
+
+        .sidebar ul li.expandable>a:before {
+            content: "+";
+            margin-right: 5px;
+        }
+
+        .sidebar ul li.expandable.expanded>a:before {
+            content: "-";
+            margin-right: 5px;
+        }
+
+        .sidebar ul li.expanded ul {
+            display: block;
+        }
+
+        .main {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            flex-shrink: 0;
+        }
+
+        /* Additional styles for interactive sidebar */
+        .sidebar ul li:hover>a {
+            background-color: #ddd;
+            color: #000;
+        }
+
+        .sidebar ul li ul li:hover>a {
+            background-color: #f5f5f5;
+        }
+
+        /* Additional styles for responsive layout */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                max-width: none;
+                width: 100%;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+        }
+
+        /* Additional styles for main content */
+        #mainContent {
+            text-align: left;
+        }
+
+        .details-container-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .details-container {
+            flex: 1;
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .success-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .success-button:hover {
+            background-color: #45a049;
+        }
+
+        .additional-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            background-color: rgb(26, 43, 46);
+            color: white;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .additional-info-subscription-plus {
+            display: flex;
+            flex-wrap: wrap;
+            color: white;
+            gap: 10px;
+            background-color: rgb(95, 121, 207);
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .additional-info-subscription-standard {
+            display: flex;
+            flex-wrap: wrap;
+            color: white;
+            gap: 10px;
+            background-color: rgb(35, 189, 133);
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .info-item img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .info-item p {
+            margin: 10;
+            padding: 10;
+        }
+
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background-color: #f2f2f2;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .tab:hover {
+            background-color: #e0e0e0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: stretch;
+            align-content: stretch;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .sidebar {
+            background-color: #f2f2f2;
+            width: 250px;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+        }
+
+        .main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .tab {
+            display: inline-block;
+            padding-left: 22%;
+            padding-right: 22%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
+        .tab.active {
+            background-color: rgb(20, 46, 50);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .forum-container {
+            margin-top: 20px;
+        }
+
+        .comments-container {
+            margin-top: 20px;
+        }
+
+        .comment {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .comment img {
+            border-radius: 50%;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .comment-header p {
+            margin-left: 5px;
+        }
+
+        .comment-content p {
+            margin: 0;
+        }
+
+        .comment-footer {
+            font-size: 12px;
+            color: gray;
+        }
+
+        .light-hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 10px 0;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="password"] {
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .password-container {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .password-container label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .password-container input[type="password"] {
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .password-button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .password-button:hover {
+            background-color: #45a049;
+        }
+
+        .password-button:active {
+            background-color: #3e8e41;
+        }
+
+        input[type="password"] {
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .profile-container label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .profile-container input[type="text"] {
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .profile-container input[type="datetime-local"] {
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .profile-button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .profile-button:hover {
+            background-color: #45a049;
+        }
+
+        .profile-button:active {
+            background-color: #3e8e41;
+        }
+
+        .comment-header,
+        .comment-content,
+        .comment-footer,
+        .profile-logo-comment {
+            margin-bottom: 5px;
+        }
+
+        .comment-content {
+            text-align: left;
+        }
+
+        .comment-footer {
+            margin-left: auto;
+        }
+
+        /* This will right-align the date */
+
+        /* Styles for the profile logo */
+        .profile-logo-comment {
+            width: 80px;
+            height: 80px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            float: left;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+            color: white;
+        }
+
+        /* Styles for the comment text area */
+        .comment-textarea {
+            width: 100%;
+            height: 40px;
+            resize: vertical;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .subscription-div {
+            background-color: rgb(216, 206, 206);
+            padding: 20px;
+            width: 95%;
+            border-radius: 4px;
+            color: black;
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .stat-item h3 {
+            margin-top: 0;
+        }
+
+        .stat-item p {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        /* Container for the chart */
+        .stats-graph {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style the canvas element for the chart */
+        #statsChart {
+            width: 100%;
+            height: 400px;
+        }
+
+        /* Optional: Add a title for the chart */
+        .stats-graph h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script>
+</head>
+
+<body>
+    <header>
+        <div class="logo">T</div>
+        <div class="logo">U</div>
+        <div class="logo">V</div>
+        <div class="logo">I</div>
+        <div class="logo">M</div>
+        <div class="logo">A</div>
+
+        <div class="search">
+            <input type="text" placeholder="Search">
+            <button><img src="Images/Search.png" width="15px" height="15px" alt="Search"></button>
+        </div>
+        <a href="#" class="logout"><img src="Images/logout.jpg" width="15px" height="15px" alt="Logout"> Logout</a>
+        <a href="#" class="profile" onclick="AddProfile()"><img src="Images/Profile.jpg" width="15px" height="15px"
+                alt="Profile"> Profile</a>
+    </header>
+
+    <div class="news-header">
+        <h1 style="font-size: xx-large;"><strong>Tuvima Admin Dashboard</strong></h1>
+        <hr class="light-hr" />
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <h3>Overview</h3>
+            <ul>
+                <li class="expandable">
+                    <a href="#">User Management</a>
+                    <ul>
+                        <li><a href="#" onclick="AddAdminDashboard()">Users</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="main">
+            <div id="mainContent">
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        &copy; 2023 Tuvima Admin Dashboard. All rights reserved.
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const expandableItems = document.querySelectorAll('.expandable > a');
+
+            expandableItems.forEach((link) => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const listItem = link.parentElement;
+                    listItem.classList.toggle('expanded');
+                });
+            });
+        });
+
+
+
+        function AddAdminDashboard() {
+
+            const mainContent = document.querySelector('#mainContent');
+            mainContent.innerHTML = `
+            <div class="details-container">
+              
+              <div class="stats-graph" id="divStatsChart"  style="display:none">
+                <canvas id="statsChart"></canvas>
+              </div>
+              <div class="stats-bar">
+                <div class="stat-item" onclick="showTotalUsers()">
+                  <h3>Total Users</h3>
+                  <p>1888</p>
+                </div>
+                <div class="stat-item" onclick="showActiveUsers()">
+                  <h3>Active Users</h3>
+                  <p>1888</p>
+                </div>
+                <div class="stat-item" onclick="showNewUsers()">
+                  <h3>New Users</h3>
+                  <p>130</p>
+                </div>
+                <!-- Add more stats here -->
+                <div class="stat-item" onclick="showRevenue()">
+                  <h3>Revenue</h3>
+                  <p>$2,555</p>
+                </div>
+                <div class="stat-item" onclick="showPortalVisits()">
+                  <h3>Portal Visits</h3>
+                  <p>4675</p>
+                </div>
+                <div class="stat-item" onclick="showSupportTickets()">
+                  <h3>Support Tickets</h3>
+                  <p>39</p>
+                </div>
+              </div>
+              
+            </div>
+          `;
+        }
+
+
+        function showTotalUsers() {
+            const currentMonth = new Date().getMonth(); // Get the current month (0 to 11)
+
+            // Dummy data for the chart (you can replace this with real data)
+            const allMonthsData = [50, 170, 100, 80, 1200, 175, 13, 180, 220, 250, 210, 300];
+
+            const chartData = {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Monthly User Registration',
+                    data: allMonthsData.slice(0, currentMonth + 1), // Extract data for the current month and previous months
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(255, 205, 86, 0.8)',
+                        'rgba(153, 102, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.8)',
+                        'rgba(94, 235, 200, 0.8)',
+                        'rgba(255, 106, 106, 0.8)',
+                        'rgba(201, 203, 207, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(125, 99, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.8)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 205, 86, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(94, 235, 200, 1)',
+                        'rgba(255, 106, 106, 1)',
+                        'rgba(201, 203, 207, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(125, 99, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                    ],
+                    borderWidth: 1,
+                    fill: false, // Add this line to create a line graph without fill
+                }],
+            };
+
+            // Get the canvas element and render the chart
+            const statsChartCanvas = document.getElementById('statsChart');
+
+            const divStatsChart = document.getElementById('divStatsChart');
+            divStatsChart.style.display = "block";
+
+            new Chart(statsChartCanvas, {
+                type: 'line', // Use 'line' for a line graph
+                data: chartData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                            },
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)',
+                            },
+                        },
+                    },
+                },
+            });
+        }
+
+
+        function showActiveUsers() {
+            const currentMonth = new Date().getMonth(); // Get the current month (0 to 11)
+
+            // Dummy data for the chart (you can replace this with real data)
+            const allMonthsData = [50, 170, 100, 80, 1200, 175, 13, 180, 220, 250, 210, 300];
+
+            const chartData = {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Active Users',
+                    data: allMonthsData.slice(0, currentMonth + 1), // Extract data for the current month and previous months
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(255, 205, 86, 0.8)',
+                        'rgba(153, 102, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.8)',
+                        'rgba(94, 235, 200, 0.8)',
+                        'rgba(255, 106, 106, 0.8)',
+                        'rgba(201, 203, 207, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(125, 99, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.8)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 205, 86, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(94, 235, 200, 1)',
+                        'rgba(255, 106, 106, 1)',
+                        'rgba(201, 203, 207, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(125, 99, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                    ],
+                    borderWidth: 1,
+                    fill: false, // Add this line to create a line graph without fill
+                }],
+            };
+
+            // Get the canvas element and render the chart
+            const statsChartCanvas = document.getElementById('statsChart');
+
+            const divStatsChart = document.getElementById('divStatsChart');
+            divStatsChart.style.display = "block";
+
+            new Chart(statsChartCanvas, {
+                type: 'line', // Use 'line' for a line graph
+                data: chartData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                            },
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)',
+                            },
+                        },
+                    },
+                },
+            });
+        }
+
+        function showNewUsers() {
+            const currentMonth = new Date().getMonth(); // Get the current month (0 to 11)
+
+            // Dummy data for the chart (you can replace this with real data)
+            const allMonthsData = [5, 17, 100, 80, 120, 15, 130, 180, 220, 250, 210, 300];
+
+            const chartData = {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'New Users of Current Month',
+                    data: allMonthsData.slice(0, currentMonth + 1), // Extract data for the current month and previous months
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(255, 205, 86, 0.8)',
+                        'rgba(153, 102, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.8)',
+                        'rgba(94, 235, 200, 0.8)',
+                        'rgba(255, 106, 106, 0.8)',
+                        'rgba(201, 203, 207, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(125, 99, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.8)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 205, 86, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(94, 235, 200, 1)',
+                        'rgba(255, 106, 106, 1)',
+                        'rgba(201, 203, 207, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(125, 99, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                    ],
+                    borderWidth: 1,
+                    fill: false, // Add this line to create a line graph without fill
+                }],
+            };
+
+            // Get the canvas element and render the chart
+            const statsChartCanvas = document.getElementById('statsChart');
+
+            const divStatsChart = document.getElementById('divStatsChart');
+            divStatsChart.style.display = "block";
+
+            new Chart(statsChartCanvas, {
+                type: 'line', // Use 'line' for a line graph
+                data: chartData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                            },
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)',
+                            },
+                        },
+                    },
+                },
+            });
+        }
+
+        function showRevenue() {
+            const currentMonth = new Date().getMonth(); // Get the current month (0 to 11)
+
+            // Dummy data for the chart (you can replace this with real data)
+            const allMonthsData = [50, 170, 100, 800, 120, 15, 1300, 180, 220, 250, 210, 300];
+
+            const chartData = {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Monthly Revenue',
+                    data: allMonthsData.slice(0, currentMonth + 1), // Extract data for the current month and previous months
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(255, 205, 86, 0.8)',
+                        'rgba(153, 102, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.8)',
+                        'rgba(94, 235, 200, 0.8)',
+                        'rgba(255, 106, 106, 0.8)',
+                        'rgba(201, 203, 207, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(125, 99, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.8)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 205, 86, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(94, 235, 200, 1)',
+                        'rgba(255, 106, 106, 1)',
+                        'rgba(201, 203, 207, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(125, 99, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                    ],
+                    borderWidth: 1,
+                    fill: false, // Add this line to create a line graph without fill
+                }],
+            };
+
+            // Get the canvas element and render the chart
+            const statsChartCanvas = document.getElementById('statsChart');
+
+            const divStatsChart = document.getElementById('divStatsChart');
+            divStatsChart.style.display = "block";
+
+            new Chart(statsChartCanvas, {
+                type: 'line', // Use 'line' for a line graph
+                data: chartData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                            },
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)',
+                            },
+                        },
+                    },
+                },
+            });
+        }
+
+        function showPortalVisits() {
+            const currentMonth = new Date().getMonth(); // Get the current month (0 to 11)
+
+            // Dummy data for the chart (you can replace this with real data)
+            const allMonthsData = [500, 1700, 100, 800, 120, 155, 1300, 1800, 22000, 2500, 2100, 300];
+
+            const chartData = {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Monthly Portal Visits',
+                    data: allMonthsData.slice(0, currentMonth + 1), // Extract data for the current month and previous months
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(255, 205, 86, 0.8)',
+                        'rgba(153, 102, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.8)',
+                        'rgba(94, 235, 200, 0.8)',
+                        'rgba(255, 106, 106, 0.8)',
+                        'rgba(201, 203, 207, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(125, 99, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.8)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 205, 86, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(94, 235, 200, 1)',
+                        'rgba(255, 106, 106, 1)',
+                        'rgba(201, 203, 207, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(125, 99, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                    ],
+                    borderWidth: 1,
+                    fill: false, // Add this line to create a line graph without fill
+                }],
+            };
+
+            // Get the canvas element and render the chart
+            const statsChartCanvas = document.getElementById('statsChart');
+
+            const divStatsChart = document.getElementById('divStatsChart');
+            divStatsChart.style.display = "block";
+
+            new Chart(statsChartCanvas, {
+                type: 'line', // Use 'line' for a line graph
+                data: chartData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                            },
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)',
+                            },
+                        },
+                    },
+                },
+            });
+        }
+
+        function showSupportTickets() {
+            const currentMonth = new Date().getMonth(); // Get the current month (0 to 11)
+
+            // Dummy data for the chart (you can replace this with real data)
+            const allMonthsData = [10, 1, 15, 3, 5, 4, 1, 18, 22, 2, 11, 3];
+
+            const chartData = {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Monthly Support Tickets',
+                    data: allMonthsData.slice(0, currentMonth + 1), // Extract data for the current month and previous months
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(255, 205, 86, 0.8)',
+                        'rgba(153, 102, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.8)',
+                        'rgba(94, 235, 200, 0.8)',
+                        'rgba(255, 106, 106, 0.8)',
+                        'rgba(201, 203, 207, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(125, 99, 255, 0.8)',
+                        'rgba(255, 159, 64, 0.8)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 205, 86, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(94, 235, 200, 1)',
+                        'rgba(255, 106, 106, 1)',
+                        'rgba(201, 203, 207, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(125, 99, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                    ],
+                    borderWidth: 1,
+                    fill: false, // Add this line to create a line graph without fill
+                }],
+            };
+
+            // Get the canvas element and render the chart
+            const statsChartCanvas = document.getElementById('statsChart');
+
+            const divStatsChart = document.getElementById('divStatsChart');
+            divStatsChart.style.display = "block";
+
+            new Chart(statsChartCanvas, {
+                type: 'line', // Use 'line' for a line graph
+                data: chartData,
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                            },
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)',
+                            },
+                        },
+                    },
+                },
+            });
+        }
+
+
+        window.onload = function () {
+            showTotalUsers();
+        }
+
+        AddAdminDashboard();
+
+    </script>
+
+</body>
+
+</html>
