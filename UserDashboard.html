@@ -344,10 +344,6 @@
             margin-top: 20px;
         }
 
-        .comments-container {
-            margin-top: 20px;
-        }
-
         .comment {
             display: flex;
             margin-bottom: 10px;
@@ -360,7 +356,7 @@
         .comment-header {
             display: flex;
             align-items: center;
-            margin-right: 20px;
+            padding: 10px;
         }
 
         .comment-header p {
@@ -369,11 +365,40 @@
 
         .comment-content p {
             margin: 0;
-            padding-top: 25%;
-            padding-left: 10%;
         }
 
         .comment-footer {
+            font-size: 12px;
+            color: gray;
+        }
+
+
+        .comments-container {
+            margin-top: 20px;
+        }
+
+        .comment {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .comment-header,
+        .comment-content,
+        .comment-footer,
+        .profile-logo-comment {
+            margin-bottom: 5px;
+        }
+
+        .comment-content {
+            text-align: left;
+        }
+
+        .comment-footer {
+            margin-left: auto;
+            /* This will right-align the date */
+        }
+
+        /* .comment-footer {
             font-size: 12px;
             color: gray;
             padding: 10%;
@@ -384,8 +409,18 @@
         .comment-footer,
         .profile-logo-comment {
             margin-bottom: 5px;
+        } */
+
+        /* Styles for the comment section */
+        .comment-section {
+
+            margin: 20px auto;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            display: none;
         }
 
+        /* Styles for the profile logo */
         .profile-logo-comment {
             width: 80px;
             height: 80px;
@@ -697,45 +732,68 @@
         }
 
         function generateComments(count) {
-            const comments = [
-                "It is great News!",
-                "We all know about that",
-                "I am glad to hear about that",
-                "Not a good news for me!",
-                "Okay! what should I do?",
-                "I work hard for that",
-                "I dont care about this",
-                "We were expecting that Result!",
-                "Poor performance",
-                "Worst rules!"
-            ];
+            const comments = [];
+            // Retrieve the JSON array of objects from localStorage
+            const comment = localStorage.getItem("comments");
 
+            // Parse the JSON data into an array of objects
+            const commentDataArray = JSON.parse(comment);
+
+            // Loop through each object in the array
+            for (const item of commentDataArray) {
+
+                // Now you can access and process each object's properties
+                comments.push(extractCommentContent(item));
+
+            }
+            // const comments = [
+            //     "It is great News!",
+            //     "We all know about that",
+            //     "I am glad to hear about that",
+            //     "Not a good news for me!",
+            //     "Okay! what should I do?",
+            //     "I work hard for that",
+            //     "I dont care about this",
+            //     "We were expecting that Result!",
+            //     "Poor performance",
+            //     "Worst rules!"
+            // ];
+
+            const signinDataString = localStorage.getItem("signinData");
+            const signinDataObject = JSON.parse(signinDataString);
+            const nickname = signinDataObject.nickname;
             const users = [
-                "NEWS JUNKY",
-                "NEWS JUNKY",
-                "NEWS JUNKY",
-                "NEWS JUNKY",
-                "NEWS JUNKY",
-                "NEWS JUNKY",
-                "NEWS JUNKY",
-                "NEWS JUNKY",
-                "NEWS JUNKY",
-                "NEWS JUNKY",
+                nickname
+                // "NEWS JUNKY",
+                // "NEWS LOVER",
+                // "NEWS LOVER",
+                // "NEWS LOVER",
+                // "NEWS JUNKY",
+                // "NEWS JUNKY",
+                // "NEWS JUNKY",
+                // "NEWS LOVER",
+                // "NEWS JUNKY",
+                // "NEWS LOVER",
             ];
 
             let commentsHTML = '';
-            for (let i = 0; i < count; i++) {
+            for (let i = 0; i < commentDataArray.length; i++) {
                 const randomComment = comments[Math.floor(Math.random() * comments.length)];
                 const date = new Date().toDateString();
                 commentsHTML += `
                 <div class="comment">
-                  <div class="profile-logo-comment">
-                    <p>${users[i].charAt(0).toUpperCase()}</p>
+                    <button class ="success-button active" style="margin-left: auto;">
+                <a href="index.html" style="text-decoration: none; color: inherit;">Go to Original Post</a>
+                </button>
+                     <div class="profile-logo-comment">
+                    <p> ${users.toString().charAt(0).toUpperCase()}</p>
                   </div>
-                  <div class="comment-header  styled-username">${users[i].toUpperCase()}</div>
+                  
+                  <div class="comment-header  styled-username"><b>${users.toString().toUpperCase()}</b></div>
                   <div class="comment-content">
                     <p>${randomComment}</p>
                   </div>
+                 
                   <div class="comment-footer">
                     <p>${date}</p>
                   </div>
@@ -756,7 +814,18 @@
             return imagesHTML;
         }
 
+        function extractCommentContent(htmlString) {
+            // Use regular expression to match the content within class="comment-content"
+            const regex = /<div\s+class="comment-content"\s*>(.*?)<\/div>/g;
+            const matches = [];
+            let match;
 
+            while ((match = regex.exec(htmlString)) !== null) {
+                matches.push(match[1]);
+            }
+
+            return matches;
+        }
 
 
         function AddTuvimaPlusSubscription() {
