@@ -746,6 +746,7 @@
                 comments.push(extractCommentContent(item));
 
             }
+            console.log(comments);
             // const comments = [
             //     "It is great News!",
             //     "We all know about that",
@@ -778,7 +779,7 @@
 
             let commentsHTML = '';
             for (let i = 0; i < commentDataArray.length; i++) {
-                const randomComment = comments[Math.floor(Math.random() * comments.length)];
+                const randomComment = comments[i];
                 const date = new Date().toDateString();
                 commentsHTML += `
                 <div class="comment">
