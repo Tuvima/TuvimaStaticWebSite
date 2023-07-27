@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View Blog Posts</title>
+</head>
+<body>
+  <h1>Blog Posts</h1>
+  <div id="postsList"></div>
+
+  <script>
+    // Function to display all saved blog posts
+    function displayPosts() {
+      var postsList = document.getElementById("postsList");
+
+      // Retrieve posts from local storage
+      var posts = JSON.parse(localStorage.getItem("posts"));
+
+      if (posts && posts.length > 0) {
+        var html = "";
+        posts.forEach(function(post) {
+          html += "<div>";
+          html += "<h2>" + post.title + "</h2>";
+          if (post.image) {
+            html += "<img src='" + post.image + "' alt='Post Image'>";
+          }
+          html += "<p>" + post.content + "</p>";
+          html += "</div>";
+        });
+        postsList.innerHTML = html;
+      } else {
+        postsList.innerHTML = "<p>No posts available yet.</p>";
+      }
+    }
+
+    // Call the function when the page loads
+    window.onload = displayPosts;
+  </script>
+</body>
+</html>

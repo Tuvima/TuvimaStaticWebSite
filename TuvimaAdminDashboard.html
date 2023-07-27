@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Tuvima Admin Dashboard</title>
+    <title>Community Admin Dashboard</title>
     <style>
         /* CSS styles for header, navbar, sidebar, content, and footer */
         body {
@@ -161,7 +161,6 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
-            align-items: center;
         }
 
         .footer {
@@ -549,7 +548,6 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            max-width: 800px;
             background-color: #f0f0f0;
             border: 1px solid #ddd;
             padding: 20px;
@@ -597,6 +595,31 @@
             font-size: 1.5rem;
             margin-bottom: 10px;
         }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #e6e6e6;
+        }
+
+
     </style>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
@@ -622,7 +645,7 @@
     </header>
 
     <div class="news-header">
-        <h1 style="font-size: xx-large;"><strong>Tuvima Admin Dashboard</strong></h1>
+        <h1 style="font-size: xx-large;"><strong>Community Admin Dashboard</strong></h1>
         <hr class="light-hr" />
     </div>
 
@@ -631,9 +654,60 @@
             <h3>Overview</h3>
             <ul>
                 <li class="expandable">
-                    <a href="#">User Management</a>
+                    <a href="#">Users</a>
                     <ul>
-                        <li><a href="#" onclick="AddAdminDashboard()">Users</a></li>
+                        <li><a href="#" onclick="AddCommunityUsers()">Community Users</a></li>
+                    </ul>
+                </li>
+                <li class="expandable">
+                    <a href="#">Communities</a>
+                    <ul>
+                        <li><a href="#">BBC NEWS</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#">BBC Sports</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#">BBC Entertainment</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#">BBC Politics</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#">BBC Science & Environment</a></li>
+                    </ul>
+                </li>
+                <li class="expandable">
+                    <a href="#">Subscriptions</a>
+                    <ul>
+                        <li><a href="#">BBC Plus</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#">BBC Standard</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#">BBC Basic</a></li>
+                    </ul>
+                </li>
+                <li class="expandable">
+                    <a href="#">Support</a>
+                    <ul>
+                        <li><a href="#">Feedbacks</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#">Survays</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#">Complaints</a></li>
+                    </ul>
+                </li>
+                <li class="expandable">
+                    <a href="#">Groups & Permissions</a>
+                    <ul>
+                        <li><a href="#">Community Administrators</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#">Community Users</a></li>
                     </ul>
                 </li>
             </ul>
@@ -641,11 +715,14 @@
 
         <div class="main">
             <div id="mainContent">
+                <div class="grid-container" id="usersGrid">
+                    <!-- User records will be added here -->
+                </div>
             </div>
         </div>
     </div>
     <div class="footer">
-        &copy; 2023 Tuvima Admin Dashboard. All rights reserved.
+        &copy; 2023 Community Admin Dashboard. All rights reserved.
     </div>
 
     <script>
@@ -661,6 +738,468 @@
             });
         });
 
+        // Sample data for 10 users (replace this with actual user data)
+        const users = [
+            {
+                nickname: "JohnDoe",
+                gender: "Male",
+                state: "New York",
+                status: "Active",
+            },
+            // Add more users here...
+        ];
+
+        function AddCommunityUsers() {
+            const mainContent = document.querySelector('#mainContent');
+            mainContent.innerHTML = `
+            <div class="details-container">
+                <h1>Community Users</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nickname</th>
+                            <th>Gender</th>
+                            <th>TuvimaIdentity</th>
+                            <th>Status</th>
+                            <th>Community</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>News Junky</td>
+                            <td>Male</td>
+                            <td>U-20230726020541@TuvimaIdentity</td>
+                            <td>New</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020542@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Critic</td>
+                            <td>Male</td>
+                            <td>U-20230726020543@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <!-- Add more user records with their respective status -->
+                        <tr>
+                            <td>Happy Hiker</td>
+                            <td>Male</td>
+                            <td>U-20230726020544@TuvimaIdentity</td>
+                            <td>Inactive</td>
+                            <td>BBC Sports</td>
+                        </tr>
+                        <tr>
+                            <td>Art Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020545@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC Arts</td>
+                        </tr>
+                        <tr>
+                            <td>Music Fanatic</td>
+                            <td>Non-Binary</td>
+                            <td>U-20230726020546@TuvimaIdentity</td>
+                            <td>Suspended</td>
+                            <td>BBC Music</td>
+                        </tr>
+                        <tr>
+                            <td>News Junky</td>
+                            <td>Male</td>
+                            <td>U-20230726020541@TuvimaIdentity</td>
+                            <td>New</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020542@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Critic</td>
+                            <td>Male</td>
+                            <td>U-20230726020543@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <!-- Add more user records with their respective status -->
+                        <tr>
+                            <td>Happy Hiker</td>
+                            <td>Male</td>
+                            <td>U-20230726020544@TuvimaIdentity</td>
+                            <td>Inactive</td>
+                            <td>BBC Sports</td>
+                        </tr>
+                        <tr>
+                            <td>Art Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020545@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC Arts</td>
+                        </tr>
+                        <tr>
+                            <td>Music Fanatic</td>
+                            <td>Non-Binary</td>
+                            <td>U-20230726020546@TuvimaIdentity</td>
+                            <td>Suspended</td>
+                            <td>BBC Music</td>
+                        </tr>
+                        <tr>
+                            <td>News Junky</td>
+                            <td>Male</td>
+                            <td>U-20230726020541@TuvimaIdentity</td>
+                            <td>New</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020542@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Critic</td>
+                            <td>Male</td>
+                            <td>U-20230726020543@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <!-- Add more user records with their respective status -->
+                        <tr>
+                            <td>Happy Hiker</td>
+                            <td>Male</td>
+                            <td>U-20230726020544@TuvimaIdentity</td>
+                            <td>Inactive</td>
+                            <td>BBC Sports</td>
+                        </tr>
+                        <tr>
+                            <td>Art Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020545@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC Arts</td>
+                        </tr>
+                        <tr>
+                            <td>Music Fanatic</td>
+                            <td>Non-Binary</td>
+                            <td>U-20230726020546@TuvimaIdentity</td>
+                            <td>Suspended</td>
+                            <td>BBC Music</td>
+                        </tr>
+                        <tr>
+                            <td>News Junky</td>
+                            <td>Male</td>
+                            <td>U-20230726020541@TuvimaIdentity</td>
+                            <td>New</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020542@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Critic</td>
+                            <td>Male</td>
+                            <td>U-20230726020543@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <!-- Add more user records with their respective status -->
+                        <tr>
+                            <td>Happy Hiker</td>
+                            <td>Male</td>
+                            <td>U-20230726020544@TuvimaIdentity</td>
+                            <td>Inactive</td>
+                            <td>BBC Sports</td>
+                        </tr>
+                        <tr>
+                            <td>Art Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020545@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC Arts</td>
+                        </tr>
+                        <tr>
+                            <td>Music Fanatic</td>
+                            <td>Non-Binary</td>
+                            <td>U-20230726020546@TuvimaIdentity</td>
+                            <td>Suspended</td>
+                            <td>BBC Music</td>
+                        </tr>
+                        <tr>
+                            <td>News Junky</td>
+                            <td>Male</td>
+                            <td>U-20230726020541@TuvimaIdentity</td>
+                            <td>New</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020542@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Critic</td>
+                            <td>Male</td>
+                            <td>U-20230726020543@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <!-- Add more user records with their respective status -->
+                        <tr>
+                            <td>Happy Hiker</td>
+                            <td>Male</td>
+                            <td>U-20230726020544@TuvimaIdentity</td>
+                            <td>Inactive</td>
+                            <td>BBC Sports</td>
+                        </tr>
+                        <tr>
+                            <td>Art Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020545@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC Arts</td>
+                        </tr>
+                        <tr>
+                            <td>Music Fanatic</td>
+                            <td>Non-Binary</td>
+                            <td>U-20230726020546@TuvimaIdentity</td>
+                            <td>Suspended</td>
+                            <td>BBC Music</td>
+                        </tr>
+                        <tr>
+                            <td>News Junky</td>
+                            <td>Male</td>
+                            <td>U-20230726020541@TuvimaIdentity</td>
+                            <td>New</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020542@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Critic</td>
+                            <td>Male</td>
+                            <td>U-20230726020543@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <!-- Add more user records with their respective status -->
+                        <tr>
+                            <td>Happy Hiker</td>
+                            <td>Male</td>
+                            <td>U-20230726020544@TuvimaIdentity</td>
+                            <td>Inactive</td>
+                            <td>BBC Sports</td>
+                        </tr>
+                        <tr>
+                            <td>Art Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020545@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC Arts</td>
+                        </tr>
+                        <tr>
+                            <td>Music Fanatic</td>
+                            <td>Non-Binary</td>
+                            <td>U-20230726020546@TuvimaIdentity</td>
+                            <td>Suspended</td>
+                            <td>BBC Music</td>
+                        </tr>
+                        <tr>
+                            <td>News Junky</td>
+                            <td>Male</td>
+                            <td>U-20230726020541@TuvimaIdentity</td>
+                            <td>New</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020542@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Critic</td>
+                            <td>Male</td>
+                            <td>U-20230726020543@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <!-- Add more user records with their respective status -->
+                        <tr>
+                            <td>Happy Hiker</td>
+                            <td>Male</td>
+                            <td>U-20230726020544@TuvimaIdentity</td>
+                            <td>Inactive</td>
+                            <td>BBC Sports</td>
+                        </tr>
+                        <tr>
+                            <td>Art Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020545@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC Arts</td>
+                        </tr>
+                        <tr>
+                            <td>Music Fanatic</td>
+                            <td>Non-Binary</td>
+                            <td>U-20230726020546@TuvimaIdentity</td>
+                            <td>Suspended</td>
+                            <td>BBC Music</td>
+                        </tr>
+                        <tr>
+                            <td>News Junky</td>
+                            <td>Male</td>
+                            <td>U-20230726020541@TuvimaIdentity</td>
+                            <td>New</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020542@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Critic</td>
+                            <td>Male</td>
+                            <td>U-20230726020543@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <!-- Add more user records with their respective status -->
+                        <tr>
+                            <td>Happy Hiker</td>
+                            <td>Male</td>
+                            <td>U-20230726020544@TuvimaIdentity</td>
+                            <td>Inactive</td>
+                            <td>BBC Sports</td>
+                        </tr>
+                        <tr>
+                            <td>Art Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020545@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC Arts</td>
+                        </tr>
+                        <tr>
+                            <td>Music Fanatic</td>
+                            <td>Non-Binary</td>
+                            <td>U-20230726020546@TuvimaIdentity</td>
+                            <td>Suspended</td>
+                            <td>BBC Music</td>
+                        </tr>
+                        <tr>
+                            <td>News Junky</td>
+                            <td>Male</td>
+                            <td>U-20230726020541@TuvimaIdentity</td>
+                            <td>New</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020542@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Critic</td>
+                            <td>Male</td>
+                            <td>U-20230726020543@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <!-- Add more user records with their respective status -->
+                        <tr>
+                            <td>Happy Hiker</td>
+                            <td>Male</td>
+                            <td>U-20230726020544@TuvimaIdentity</td>
+                            <td>Inactive</td>
+                            <td>BBC Sports</td>
+                        </tr>
+                        <tr>
+                            <td>Art Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020545@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC Arts</td>
+                        </tr>
+                        <tr>
+                            <td>Music Fanatic</td>
+                            <td>Non-Binary</td>
+                            <td>U-20230726020546@TuvimaIdentity</td>
+                            <td>Suspended</td>
+                            <td>BBC Music</td>
+                        </tr>
+                        <tr>
+                            <td>News Junky</td>
+                            <td>Male</td>
+                            <td>U-20230726020541@TuvimaIdentity</td>
+                            <td>New</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020542@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <tr>
+                            <td>News Critic</td>
+                            <td>Male</td>
+                            <td>U-20230726020543@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC News</td>
+                        </tr>
+                        <!-- Add more user records with their respective status -->
+                        <tr>
+                            <td>Happy Hiker</td>
+                            <td>Male</td>
+                            <td>U-20230726020544@TuvimaIdentity</td>
+                            <td>Inactive</td>
+                            <td>BBC Sports</td>
+                        </tr>
+                        <tr>
+                            <td>Art Lover</td>
+                            <td>Female</td>
+                            <td>U-20230726020545@TuvimaIdentity</td>
+                            <td>Active</td>
+                            <td>BBC Arts</td>
+                        </tr>
+                        <tr>
+                            <td>Music Fanatic</td>
+                            <td>Non-Binary</td>
+                            <td>U-20230726020546@TuvimaIdentity</td>
+                            <td>Suspended</td>
+                            <td>BBC Music</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+          `;
+        }
 
 
         function AddAdminDashboard() {
@@ -669,7 +1208,7 @@
             mainContent.innerHTML = `
             <div class="details-container">
               
-              <div class="stats-graph" id="divStatsChart"  style="display:none">
+              <div class="stats-graph" id="divStatsChart">
                 <canvas id="statsChart"></canvas>
               </div>
               <div class="stats-bar">
@@ -861,7 +1400,7 @@
             const chartData = {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                 datasets: [{
-                    label: 'New Users of Current Month',
+                    label: 'Monthly User Registration',
                     data: allMonthsData.slice(0, currentMonth + 1), // Extract data for the current month and previous months
                     backgroundColor: 'rgba(54, 162, 235, 0.6)',
                     backgroundColor: [
@@ -1143,6 +1682,8 @@
                 },
             });
         }
+
+
 
 
         window.onload = function () {

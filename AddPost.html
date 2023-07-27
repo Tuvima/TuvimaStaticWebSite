@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blog Post Creator</title>
+</head>
+<body>
+  <h1>Create a Blog Post</h1>
+  <form id="postForm">
+    <label for="postTitle">Post Title:</label>
+    <input type="text" id="postTitle" required><br>
+    <label for="postImage">Post Image URL:</label>
+    <input type="text" id="postImage"><br>
+    <label for="postContent">Post Content:</label><br>
+    <textarea id="postContent" rows="5" required></textarea><br>
+    <button type="submit">Create Post</button>
+  </form>
+
+  <script>
+    // Event listener to handle form submission
+    document.getElementById("postForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      createPost();
+    });
+
+    function createPost() {
+      // Get input values
+      var title = document.getElementById("postTitle").value;
+      var image = document.getElementById("postImage").value;
+      var content = document.getElementById("postContent").value;
+
+      // Create post object
+      var post = {
+        title: title,
+        image: image,
+        content: content
+      };
+
+      // Save post object to local storage
+      savePost(post);
+    }
+
+    function savePost(post) {
+      // Retrieve existing posts from local storage (if any)
+      var existingPosts = JSON.parse(localStorage.getItem("posts")) || [];
+
+      // Add the new post to the array
+      existingPosts.push(post);
+
+      // Save the updated array back to local storage
+      localStorage.setItem("posts", JSON.stringify(existingPosts));
+
+      // Reset the form
+      document.getElementById("postForm").reset();
+
+      alert("Post created successfully!");
+    }
+  </script>
+</body>
+</html>
